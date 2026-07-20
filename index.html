@@ -226,8 +226,37 @@
             display: none;
         }
         
-        input[type="file"] {
-            width: 100%;
+        .help-section {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--azul-oscuro);
+        }
+        
+        .help-section h3 {
+            color: var(--azul-oscuro);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .help-section p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .step {
+            background: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid var(--naranja-aviso);
+        }
+        
+        .step strong {
+            color: var(--azul-oscuro);
         }
     </style>
 </head>
@@ -244,6 +273,7 @@
             <button class="tab-btn" onclick="switchTab('reportar')">📝 Reportar</button>
             <button class="tab-btn" onclick="switchTab('incidentes')">📋 Histórico</button>
             <button class="tab-btn" onclick="switchTab('backup')">💾 Backup</button>
+            <button class="tab-btn" onclick="switchTab('ayuda')">❓ Ayuda</button>
         </div>
         
         <div class="content">
@@ -351,6 +381,78 @@
                     </p>
                 </div>
             </div>
+            
+            <!-- Ayuda -->
+            <div id="ayuda" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">❓ Guía de Uso</h2>
+                
+                <button class="success" onclick="descargarManual()" style="margin-bottom: 15px;">📄 Descargar Manual (TXT)</button>
+                
+                <div class="help-section">
+                    <h3>🚀 Inicio Rápido</h3>
+                    <div class="step">
+                        <strong>1. Reportar Incidente</strong>
+                        <p>Selecciona "Reportar" → Completa el formulario → Click "Enviar"</p>
+                    </div>
+                    <div class="step">
+                        <strong>2. Ver Histórico</strong>
+                        <p>Selecciona "Histórico" para ver todos tus reportes guardados</p>
+                    </div>
+                    <div class="step">
+                        <strong>3. Backup y Compartir</strong>
+                        <p>Selecciona "Backup" → "Descargar" o "Compartir por WhatsApp"</p>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <h3>📝 Tipos de Incidentes</h3>
+                    <p style="font-size: 12px; line-height: 1.8;">
+                        🚗 <strong>Robo de vehículo</strong> - Robo de auto, moto<br>
+                        🏠 <strong>Robo a residencia</strong> - Robo en casa<br>
+                        🏪 <strong>Robo a comercio</strong> - Robo en tienda<br>
+                        👤 <strong>Sospechoso rondando</strong> - Persona sospechosa<br>
+                        ⚠️ <strong>Asalto</strong> - Asalto a mano armada<br>
+                        🚗 <strong>Accidente</strong> - Accidente vial<br>
+                        ❓ <strong>Otro</strong> - Cualquier otro incidente
+                    </p>
+                </div>
+                
+                <div class="help-section">
+                    <h3>💾 Cómo Funciona el Backup</h3>
+                    <div class="step">
+                        <strong>Descargar Backup</strong>
+                        <p>Se crea un archivo JSON con todos tus reportes que puedes guardar en tu PC</p>
+                    </div>
+                    <div class="step">
+                        <strong>Compartir por WhatsApp</strong>
+                        <p>Abre WhatsApp y comparte el enlace + instrucciones con otros usuarios</p>
+                    </div>
+                    <div class="step">
+                        <strong>Restaurar Backup</strong>
+                        <p>Sube un archivo JSON para restaurar histórico de otra persona</p>
+                    </div>
+                </div>
+                
+                <div class="help-section">
+                    <h3>❓ Preguntas Frecuentes</h3>
+                    <div class="step">
+                        <strong>¿Dónde se guardan los datos?</strong>
+                        <p>En tu navegador (localStorage). No se envían a servidores</p>
+                    </div>
+                    <div class="step">
+                        <strong>¿Se pierden si limpio el navegador?</strong>
+                        <p>Sí. Por eso es importante hacer backup regularmente</p>
+                    </div>
+                    <div class="step">
+                        <strong>¿Puedo compartir con otros?</strong>
+                        <p>Sí. Descarga backup y comparte el archivo por WhatsApp o email</p>
+                    </div>
+                    <div class="step">
+                        <strong>¿Es privado?</strong>
+                        <p>Totalmente. Tus datos no salen de tu navegador</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="footer">
@@ -359,10 +461,6 @@
     </div>
     
     <script>
-        // ========================================
-        // ALMACENAMIENTO LOCAL (localStorage)
-        // ========================================
-        
         const DB_KEY = 'guardia_digital_reports';
         const BACKUP_VERSION = '1.0';
         
@@ -370,7 +468,7 @@
             let reportes = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
             reportes.push(incidente);
             localStorage.setItem(DB_KEY, JSON.stringify(reportes));
-            console.log(`[Guardia] ✅ Reporte guardado localmente: ${incidente.uuid}`);
+            console.log(`[Guardia] ✅ Reporte guardado: ${incidente.uuid}`);
         }
         
         function cargarDelLocal() {
@@ -384,10 +482,6 @@
                 totalSospechosos: reportes.filter(r => r.tipo === 'sospechoso').length
             };
         }
-        
-        // ========================================
-        // INTERFAZ
-        // ========================================
         
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -476,10 +570,6 @@
             }
         }
         
-        // ========================================
-        // BACKUP & RESTORE
-        // ========================================
-        
         function descargarBackup() {
             const reportes = cargarDelLocal();
             const backup = {
@@ -521,7 +611,7 @@
                     localStorage.setItem(DB_KEY, JSON.stringify(backup.datos));
                     
                     const msg = document.getElementById('backupMessage');
-                    msg.innerHTML = `<div class="message success">✅ ${backup.datos.length} reportes restaurados correctamente</div>`;
+                    msg.innerHTML = `<div class="message success">✅ ${backup.datos.length} reportes restaurados</div>`;
                     setTimeout(() => msg.innerHTML = '', 3000);
                     
                     actualizarDashboard();
@@ -533,8 +623,6 @@
                 }
             };
             reader.readAsText(file);
-            
-            // Reset input
             event.target.value = '';
         }
         
@@ -543,20 +631,201 @@
             const texto = `📊 *Guardia Digital - Reporte de Seguridad*\n\n` +
                 `Total de reportes: ${reportes.length}\n` +
                 `Fecha: ${new Date().toLocaleDateString('es-CO')}\n\n` +
-                `🔗 Descarga el backup completo y restaura los datos en: https://guardiadigitalcolina.netlify.app\n\n` +
+                `🔗 Descarga el backup completo en: https://haroldco45.github.io/guardiadigital/\n\n` +
                 `Desarrollada por Vibras Positivas HM`;
             
             const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
             window.open(url, '_blank');
         }
         
-        // ========================================
-        // INICIALIZAR
-        // ========================================
+        function descargarManual() {
+            const manual = `GUARDIA DIGITAL - MANUAL DE USO
+=====================================
+
+VERSION: 2.1
+FECHA: 20/07/2026
+
+🛡️ INTRODUCCIÓN
+================
+Guardia Digital es una aplicación para reportar incidentes de seguridad
+en tu barrio. Los datos se guardan localmente en tu navegador y pueden
+compartirse con otros usuarios mediante backup.
+
+📋 CONTENIDO
+================
+
+1. PESTAÑAS PRINCIPALES
+2. CÓMO REPORTAR
+3. HISTÓRICO DE REPORTES
+4. BACKUP Y COMPARTIR
+5. PRIVACIDAD Y SEGURIDAD
+6. PREGUNTAS FRECUENTES
+
+1. PESTAÑAS PRINCIPALES
+================
+
+📊 DASHBOARD
+- Resumen con total de incidentes
+- Últimos 5 reportes
+- Contador de sospechosos
+
+📝 REPORTAR
+- Formulario para crear nuevo reporte
+- Selecciona tipo de incidente
+- Completa descripción y ubicación
+
+📋 HISTÓRICO
+- Ver todos los reportes guardados
+- Ordenados por fecha (más reciente primero)
+- Ver detalles de cada reporte
+
+💾 BACKUP
+- Descargar backup en formato JSON
+- Subir backup para restaurar datos
+- Compartir por WhatsApp
+
+❓ AYUDA
+- Guía completa de uso
+- Preguntas frecuentes
+- Descargar manual
+
+2. CÓMO REPORTAR
+================
+
+PASO 1: Click en pestaña "📝 Reportar"
+
+PASO 2: Selecciona el tipo de incidente:
+- 🚗 Robo de vehículo
+- 🏠 Robo a residencia
+- 🏪 Robo a comercio
+- 👤 Sospechoso rondando
+- ⚠️ Asalto
+- 🚗 Accidente
+- ❓ Otro
+
+PASO 3: Completa la información:
+- DESCRIPCIÓN*: Cuéntanos qué pasó
+- UBICACIÓN*: Calle o sector donde ocurrió
+- ZONA: Barrio (opcional)
+- NOMBRE/TELÉFONO: Tu contacto (opcional)
+
+PASO 4: Click en "📤 Enviar Reporte"
+
+El reporte se guarda automáticamente en tu navegador.
+
+3. HISTÓRICO DE REPORTES
+================
+
+Para ver todos tus reportes:
+1. Click en pestaña "📋 Histórico"
+2. Click en "🔄 Actualizar" para refrescar
+3. Ver lista de reportes ordenados por fecha
+
+Cada reporte muestra:
+- Tipo de incidente
+- Descripción
+- Ubicación
+- Fecha y hora
+- Reportado por (si lo ingresaste)
+
+4. BACKUP Y COMPARTIR
+================
+
+DESCARGAR BACKUP:
+1. Click en pestaña "💾 Backup"
+2. Click en "📥 Descargar Backup (JSON)"
+3. Se descarga archivo: guardia-backup-2026-07-20.json
+4. Guarda en tu PC para seguridad
+
+COMPARTIR POR WHATSAPP:
+1. Click en pestaña "💾 Backup"
+2. Click en "💬 Compartir por WhatsApp"
+3. Se abre WhatsApp con resumen
+4. Comparte con otros usuarios
+
+RESTAURAR BACKUP:
+1. Click en pestaña "💾 Backup"
+2. Click en "📤 Subir Backup (Restaurar)"
+3. Selecciona archivo guardia-backup-*.json
+4. Se restauran todos los reportes
+
+FLUJO COMPARTIDO:
+Usuario A → Descarga backup → Comparte por WhatsApp
+Usuario B → Recibe archivo → Sube en la app
+Usuario B → Ve todos los reportes de Usuario A
+
+5. PRIVACIDAD Y SEGURIDAD
+================
+
+✅ LO QUE GUARDAMOS:
+- Tipo de incidente
+- Descripción
+- Ubicación
+- Zona/Barrio
+- Tu nombre (si lo proporcionas)
+- Fecha y hora
+
+❌ LO QUE NO GUARDAMOS:
+- Ubicación GPS
+- Fotos o videos
+- Datos bancarios
+- Información personal completa
+
+🔐 PRIVACIDAD:
+- Los datos solo se guardan en tu navegador
+- NO se envían a ningún servidor
+- Tú tienes control total de tus datos
+- Descarga backup para tener copia
+
+⚠️ IMPORTANTE:
+Si limpias el caché del navegador, se pierden los datos.
+Por eso es importante hacer backup regularmente.
+
+6. PREGUNTAS FRECUENTES
+================
+
+P: ¿Dónde se guardan los datos?
+R: En tu navegador (localStorage). No en servidores.
+
+P: ¿Se pierden si reinicio el navegador?
+R: No, se mantienen. Solo se pierden si limpias caché.
+
+P: ¿Puedo compartir con otros?
+R: Sí. Descarga backup y comparte archivo por WhatsApp.
+
+P: ¿Es privado?
+R: Totalmente privado. Datos solo en tu navegador.
+
+P: ¿Cuántos reportes puedo guardar?
+R: Hasta ~10 MB de datos por navegador (cientos de reportes).
+
+P: ¿Funciona sin internet?
+R: Sí, una vez cargada la app. Guardado es local.
+
+P: ¿Otros usuarios ven mis reportes?
+R: Solo si compartís backup explícitamente.
+
+P: ¿Puedo eliminar reportes?
+R: Sí, restaurando backup anterior (sin ese reporte).
+
+=====================================
+DESARROLLADA POR VIBRAS POSITIVAS HM
+Derechos de Autor Reservados
+=====================================`;
+            
+            const blob = new Blob([manual], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Guardia-Digital-Manual-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
         
         window.addEventListener('load', () => {
-            console.log('[Guardia] 🚀 Iniciando app con almacenamiento local');
-            document.getElementById('statusBadge').innerHTML = '💾 Datos Locales';
+            console.log('[Guardia] 🚀 Iniciando app');
             actualizarDashboard();
         });
     </script>
