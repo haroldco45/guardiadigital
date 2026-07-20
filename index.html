@@ -370,7 +370,18 @@
                 <button class="secondary" onclick="document.getElementById('archivoBackup').click()">📤 Restaurar Backup</button>
                 <input type="file" id="archivoBackup" class="file-input" accept=".json" onchange="restaurarBackup(event)">
                 
+                <button class="secondary" onclick="compartirWhatsApp()" style="background: #25D366; margin-top: 10px;">💬 Compartir por WhatsApp</button>
+                
                 <div id="backupMessage" style="margin-top: 15px;"></div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--naranja-aviso); font-size: 13px;">
+                    <p style="margin: 0 0 10px 0;"><strong>📌 CÓMO GUARDAR EN PC CENTRAL:</strong></p>
+                    <p style="margin: 5px 0;">1️⃣ Click "📥 Descargar Backup" → Guarda archivo</p>
+                    <p style="margin: 5px 0;">2️⃣ Click "💬 Compartir por WhatsApp" → Se abre chat</p>
+                    <p style="margin: 5px 0;">3️⃣ Adjunta el archivo descargado al mensaje</p>
+                    <p style="margin: 5px 0;">4️⃣ Otros usuarios descargan de WhatsApp</p>
+                    <p style="margin: 5px 0;">5️⃣ Click "📤 Restaurar Backup" para ver el histórico</p>
+                </div>
             </div>
         </div>
         
@@ -667,6 +678,36 @@
             };
             reader.readAsText(file);
             event.target.value = '';
+        }
+        
+        function compartirWhatsApp() {
+            const reportes = cargarDelLocal();
+            const fecha = new Date().toLocaleDateString('es-CO');
+            const hora = new Date().toLocaleTimeString('es-CO');
+            
+            const mensaje = `📊 *GUARDIA DIGITAL - BACKUP HISTÓRICO*
+
+📅 Fecha: ${fecha}
+🕐 Hora: ${hora}
+📝 Total de reportes: ${reportes.length}
+
+*INSTRUCCIONES:*
+1. Descarga el archivo de backup desde la app (📥 Descargar Backup)
+2. Adjunta el archivo a este chat por WhatsApp
+3. Otros usuarios pueden restaurar el backup en sus teléfonos
+
+*FLUJO:*
+Usuario A → Descarga backup.json
+Usuario A → Comparte archivo por WhatsApp
+Usuario B → Recibe archivo
+Usuario B → Abre la app y restaura (📤 Restaurar Backup)
+Usuario B → ¡Ve todo el histórico de Usuario A!
+
+🛡️ Guardia Digital - Seguridad Comunitaria
+https://haroldco45.github.io/guardiadigital/`;
+            
+            const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
         
         window.addEventListener('load', () => {
