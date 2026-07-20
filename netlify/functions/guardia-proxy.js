@@ -1,5 +1,5 @@
 // netlify/functions/guardia-proxy.js
-// Proxy simplificado para Guardia Digital
+// Proxy para Guardia Digital - DOMINIO CORRECTO
 
 exports.handler = async (event, context) => {
     // CORS Headers
@@ -19,8 +19,8 @@ exports.handler = async (event, context) => {
     }
 
     try {
-        // API Local via Tailscale
-        const API_LOCAL = 'https://desktop-9vhqq3p.tailscale.net/api/guardia';
+        // API Local via Tailscale Funnel - DOMINIO CORRECTO
+        const API_LOCAL = 'https://desktop-9vhqq3p.tailscalecb.ts.net/api/guardia';
         
         // Obtener parámetro 'action'
         const queryParams = event.queryStringParameters || {};
