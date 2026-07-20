@@ -1,0 +1,115 @@
+🛡️ GUARDIA DIGITAL - ARQUITECTURA FINAL CON NETLIFY
+===================================================
+
+RESUMEN DE CAMBIOS:
+==================
+
+ANTES (lo que intentamos):
+- App: GitHub Pages
+- Proxy: PHP en Hostinger ❌ (no funcionaba bien)
+- API: Local (3001) ❌ (no accesible desde internet)
+- BD: MySQL en Hostinger ✅
+
+AHORA (SOLUCIÓN CORRECTA):
+- App: Netlify ✅
+- Proxy: Netlify Functions ✅ (reemplaza PHP proxy)
+- API: Local (3001) ✅ (Netlify Functions lo alcanza)
+- BD: MySQL en Hostinger ✅ (se mantiene igual)
+
+
+ARQUITECTURA VISUAL:
+====================
+
+┌─────────────────────────────────────────────────┐
+│               VECINOS DEL BARRIO                │
+│          (En sus computadoras/celulares)        │
+└─────────────────────┬───────────────────────────┘
+                      │ HTTPS (Internet)
+                      ↓
+        ┌─────────────────────────────┐
+        │        NETLIFY              │
+        ├─────────────────────────────┤
+        │ App: index.html             │
+        │ Functions: guardia-proxy.js │
+        └─────────────────┬───────────┘
+                          │ HTTP interno
+                          ↓
+    ┌─────────────────────────────────┐
+    │     TU PC LOCAL (Caucasia)      │
+    │     API Node.js (puerto 3001)   │
+    └─────────────────┬───────────────┘
+                      │ TCP/IP
+                      ↓
+        ┌─────────────────────────────┐
+        │      HOSTINGER              │
+        ├─────────────────────────────┤
+        │ MySQL: guardia_digital      │
+        │ (Base de datos compartida)  │
+        └─────────────────────────────┘
+
+
+ARCHIVOS NECESARIOS PARA DESPLEGAR:
+===================================
+
+Descarga estos 4 archivos de outputs/:
+
+1. index.html
+   └── Ubicación: Raíz del repo
+   └── Descripción: App actualizada con Netlify Functions
+
+2. netlify.toml
+   └── Ubicación: Raíz del repo
+   └── Descripción: Configuración de Netlify
+
+3. guardia-proxy.js
+   └── Ubicación: netlify/functions/guardia-proxy.js
+   └── Descripción: Proxy que Netlify usa
+
+4. GUIA-NETLIFY.md
+   └── Ubicación: Documentación para desplegar
+   └── Descripción: Instrucciones paso a paso
+
+
+ESTRUCTURA DE CARPETAS FINAL:
+============================
+
+guardia-digital/
+├── index.html ← ACTUALIZADO
+├── netlify.toml ← NUEVO
+├── netlify/
+│   └── functions/
+│       └── guardia-proxy.js ← NUEVO
+├── README.md
+└── .gitignore
+
+
+¿QUÉ PASA CON HOSTINGER?
+=========================
+
+✅ MySQL guardia_dig → SE MANTIENE (es la BD real)
+❌ api-guardia.php → SE ELIMINA (ya no se necesita, Netlify lo reemplaza)
+
+Después del deploy, puedes eliminar el archivo api-guardia.php de Hostinger.
+
+
+VENTAJAS DE ESTA SOLUCIÓN:
+=========================
+
+✅ Funciona desde cualquier lugar del mundo
+✅ Todos los vecinos ven datos en TIEMPO REAL
+✅ Patrón probado (como Cierre Diario)
+✅ Más rápido y simple que PHP proxy
+✅ Fácil de mantener y escalar
+✅ Datos seguros en MySQL Hostinger
+
+
+PRÓXIMO PASO:
+=============
+
+1. Descarga los 4 archivos de outputs/
+2. Sigue la GUIA-NETLIFY.md paso a paso
+3. Deploy en Netlify
+4. ¡Listo! Comparte URL con vecinos
+
+
+¡LISTO PARA PRODUCCIÓN! 🚀🛡️
