@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Guardia Digital - Sistema de seguridad comunitaria con histórico">
+    <meta name="description" content="Guardia Digital - Seguridad comunitaria con multimedia">
     <meta name="theme-color" content="#1e3a5f">
     
     <!-- Open Graph -->
     <meta property="og:title" content="🛡️ Guardia Digital - Seguridad del Barrio">
-    <meta property="og:description" content="Sistema de vigilancia comunitaria. Reporta incidentes y mantén tu barrio seguro.">
-    <meta property="og:image" content="https://guardiadalcolina.netlify.app/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://guardiadalcolina.netlify.app/">
+    <meta property="og:description" content="Reporta con fotos, videos y audio">
+    <meta property="og:url" content="https://haroldco45.github.io/guardiadigital/">
     <meta property="og:type" content="website">
     
     <!-- PWA -->
@@ -59,7 +56,6 @@
             color: var(--blanco);
             padding: 15px 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
         .header h1 {
@@ -80,8 +76,7 @@
             margin-top: 5px;
         }
         
-        .status.online::before { content: '🟢'; margin-right: 5px; }
-        .status.offline::before { content: '💾'; margin-right: 5px; }
+        .status::before { content: '💾'; margin-right: 5px; }
         
         .tabs {
             display: flex;
@@ -102,13 +97,11 @@
             font-weight: 600;
             white-space: nowrap;
             transition: all 0.3s;
-            border: 2px solid transparent;
         }
         
         .tab-btn.active {
             background: var(--azul-oscuro);
             color: white;
-            border-color: var(--azul-oscuro);
         }
         
         .content {
@@ -161,20 +154,12 @@
             font-weight: 600;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.3s;
             width: 100%;
             margin-bottom: 10px;
         }
         
-        button:active { transform: scale(0.98); }
-        
-        button.secondary {
-            background: var(--naranja-aviso);
-        }
-        
-        button.success {
-            background: var(--verde-seguro);
-        }
+        button.secondary { background: var(--naranja-aviso); }
+        button.success { background: var(--verde-seguro); }
         
         .incident-card {
             background: var(--gris-claro);
@@ -182,6 +167,62 @@
             margin-bottom: 10px;
             border-radius: 8px;
             border-left: 4px solid var(--azul-medio);
+        }
+        
+        .media-preview {
+            margin-top: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 200px;
+            background: #000;
+        }
+        
+        .media-preview img, 
+        .media-preview video, 
+        .media-preview audio {
+            width: 100%;
+            max-height: 200px;
+        }
+        
+        .media-badge {
+            display: inline-block;
+            background: var(--verde-seguro);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        
+        .media-controls {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .media-controls button {
+            flex: 1;
+            min-width: 120px;
+            margin-bottom: 0;
+        }
+        
+        .recording {
+            background: var(--rojo-alerta) !important;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.7; }
+        }
+        
+        video#camaraPreview {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+            margin-bottom: 10px;
         }
         
         .message {
@@ -195,13 +236,11 @@
         .message.success {
             background: #d4edda;
             color: #155724;
-            border: 1px solid #c3e6cb;
         }
         
         .message.error {
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
         }
         
         .footer {
@@ -213,50 +252,8 @@
             border-top: 1px solid #ddd;
         }
         
-        .backup-info {
-            background: #e3f2fd;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 15px;
-            border-left: 4px solid #2196F3;
-        }
-        
         .file-input {
             display: none;
-        }
-        
-        .help-section {
-            background: #f0f7ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--azul-oscuro);
-        }
-        
-        .help-section h3 {
-            color: var(--azul-oscuro);
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-        
-        .help-section p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 8px;
-        }
-        
-        .step {
-            background: white;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border-left: 3px solid var(--naranja-aviso);
-        }
-        
-        .step strong {
-            color: var(--azul-oscuro);
         }
     </style>
 </head>
@@ -264,16 +261,15 @@
     <div class="container">
         <div class="header">
             <h1>🛡️ Guardia Digital</h1>
-            <p style="font-size: 14px; margin: 0;">Seguridad Comunitaria en Tiempo Real</p>
-            <div id="statusBadge" class="status offline">💾 Datos Locales</div>
+            <p style="font-size: 14px; margin: 0;">Con Multimedia 📸📹🎙️</p>
+            <div class="status">Datos Locales</div>
         </div>
         
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab-btn" onclick="switchTab('reportar')">📝 Reportar</button>
+            <button class="tab-btn" onclick="switchTab('reportar')">📸 Reportar</button>
             <button class="tab-btn" onclick="switchTab('incidentes')">📋 Histórico</button>
             <button class="tab-btn" onclick="switchTab('backup')">💾 Backup</button>
-            <button class="tab-btn" onclick="switchTab('ayuda')">❓ Ayuda</button>
         </div>
         
         <div class="content">
@@ -284,11 +280,11 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
                     <div style="background: linear-gradient(135deg, var(--rojo-alerta), #c0392b); color: white; padding: 15px; border-radius: 8px; text-align: center;">
                         <div style="font-size: 28px; font-weight: bold;" id="totalIncidentes">0</div>
-                        <small>Incidentes Totales</small>
+                        <small>Incidentes</small>
                     </div>
                     <div style="background: linear-gradient(135deg, var(--naranja-aviso), #d68910); color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold;" id="totalSospechosos">0</div>
-                        <small>Sospechosos</small>
+                        <div style="font-size: 28px; font-weight: bold;" id="totalMultimedia">0</div>
+                        <small>Con Media</small>
                     </div>
                 </div>
                 
@@ -297,7 +293,7 @@
             
             <!-- Reportar -->
             <div id="reportar" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📝 Reportar Incidente</h2>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📸 Reportar con Multimedia</h2>
                 
                 <div id="reportarMessage"></div>
                 
@@ -306,10 +302,9 @@
                         <label>Tipo de Incidente *</label>
                         <select id="tipo" required>
                             <option value="">-- Selecciona --</option>
-                            <option value="robo">🚗 Robo de vehículo</option>
-                            <option value="robo_residencia">🏠 Robo a residencia</option>
-                            <option value="robo_comercio">🏪 Robo a comercio</option>
-                            <option value="sospechoso">👤 Sospechoso rondando</option>
+                            <option value="robo">🚗 Robo</option>
+                            <option value="robo_residencia">🏠 Robo residencia</option>
+                            <option value="sospechoso">👤 Sospechoso</option>
                             <option value="asalto">⚠️ Asalto</option>
                             <option value="accidente">🚗 Accidente</option>
                             <option value="otro">❓ Otro</option>
@@ -322,136 +317,51 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Ubicación (Calle/Sector) *</label>
-                        <input type="text" id="ubicacion" placeholder="Calle o sector..." required>
+                        <label>Ubicación *</label>
+                        <input type="text" id="ubicacion" placeholder="Calle..." required>
                     </div>
                     
+                    <!-- MULTIMEDIA SECTION -->
                     <div class="form-group">
-                        <label>Zona/Barrio</label>
-                        <input type="text" id="zona" placeholder="Ej: Centro, Barrio Norte...">
+                        <label>📸 Multimedia (Opcional)</label>
+                        <div class="media-controls">
+                            <button type="button" class="secondary" onclick="abrirCamara()">📷 Foto</button>
+                            <button type="button" class="secondary" onclick="grabarVideo()">🎥 Video</button>
+                            <button type="button" class="secondary" onclick="grabarAudio()">🎙️ Audio</button>
+                            <button type="button" class="secondary" onclick="document.getElementById('archivoMedia').click()">📁 Archivo</button>
+                        </div>
+                        <input type="file" id="archivoMedia" class="file-input" accept="image/*,video/*,audio/*" onchange="agregarMedia(event)">
                     </div>
                     
-                    <div class="form-group">
-                        <label>Tu Nombre/Teléfono (opcional)</label>
-                        <input type="text" id="reportado_por" placeholder="Anónimo">
+                    <!-- VIDEO PREVIEW CAMARA -->
+                    <div id="camaraContainer" style="display:none;">
+                        <video id="camaraPreview" autoplay playsinline></video>
+                        <button type="button" class="success" onclick="capturarFoto()">📸 Capturar</button>
+                        <button type="button" class="secondary" onclick="cerrarCamara()">❌ Cancelar</button>
                     </div>
+                    
+                    <!-- MEDIA PREVIEW -->
+                    <div id="mediaPreview"></div>
                     
                     <button type="submit">📤 Enviar Reporte</button>
                 </form>
-                
-                <div style="background: var(--gris-claro); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; border-left: 4px solid var(--verde-seguro);">
-                    <p style="font-size: 13px; color: #666; margin: 0;">
-                        <strong>¡Juntos hacemos nuestro barrio más seguro!</strong><br>
-                        Los datos se guardan localmente en tu navegador
-                    </p>
-                </div>
             </div>
             
             <!-- Histórico -->
             <div id="incidentes" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📋 Histórico de Reportes</h2>
-                <button onclick="cargarIncidentes()" style="margin-bottom: 15px;">🔄 Actualizar</button>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📋 Histórico</h2>
                 <div id="incidentesContainer"></div>
             </div>
             
             <!-- Backup -->
             <div id="backup" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">💾 Backup & Restaurar</h2>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">💾 Backup</h2>
                 
-                <div class="backup-info">
-                    📌 <strong>Backup Local:</strong> Guarda todos tus reportes en un archivo JSON que puedes compartir por WhatsApp o guardar en tu PC.
-                </div>
-                
-                <button class="success" onclick="descargarBackup()">📥 Descargar Backup (JSON)</button>
-                
-                <button class="secondary" onclick="document.getElementById('archivoBackup').click()">📤 Subir Backup (Restaurar)</button>
+                <button class="success" onclick="descargarBackup()">📥 Descargar Backup</button>
+                <button class="secondary" onclick="document.getElementById('archivoBackup').click()">📤 Restaurar Backup</button>
                 <input type="file" id="archivoBackup" class="file-input" accept=".json" onchange="restaurarBackup(event)">
                 
-                <button class="secondary" onclick="compartirWhatsApp()" style="background: #25D366;">💬 Compartir por WhatsApp</button>
-                
                 <div id="backupMessage" style="margin-top: 15px;"></div>
-                
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--naranja-aviso);">
-                    <p style="font-size: 13px; color: #666; margin: 0;">
-                        <strong>💡 Cómo funciona:</strong><br>
-                        1. Haz click en "Descargar Backup" para obtener un archivo JSON<br>
-                        2. Comparte el archivo por WhatsApp<br>
-                        3. Otra persona puede subir el archivo aquí para ver el histórico<br>
-                        4. Los datos se guardan solo en tu navegador
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Ayuda -->
-            <div id="ayuda" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">❓ Guía de Uso</h2>
-                
-                <button class="success" onclick="descargarManual()" style="margin-bottom: 15px;">📄 Descargar Manual (TXT)</button>
-                
-                <div class="help-section">
-                    <h3>🚀 Inicio Rápido</h3>
-                    <div class="step">
-                        <strong>1. Reportar Incidente</strong>
-                        <p>Selecciona "Reportar" → Completa el formulario → Click "Enviar"</p>
-                    </div>
-                    <div class="step">
-                        <strong>2. Ver Histórico</strong>
-                        <p>Selecciona "Histórico" para ver todos tus reportes guardados</p>
-                    </div>
-                    <div class="step">
-                        <strong>3. Backup y Compartir</strong>
-                        <p>Selecciona "Backup" → "Descargar" o "Compartir por WhatsApp"</p>
-                    </div>
-                </div>
-                
-                <div class="help-section">
-                    <h3>📝 Tipos de Incidentes</h3>
-                    <p style="font-size: 12px; line-height: 1.8;">
-                        🚗 <strong>Robo de vehículo</strong> - Robo de auto, moto<br>
-                        🏠 <strong>Robo a residencia</strong> - Robo en casa<br>
-                        🏪 <strong>Robo a comercio</strong> - Robo en tienda<br>
-                        👤 <strong>Sospechoso rondando</strong> - Persona sospechosa<br>
-                        ⚠️ <strong>Asalto</strong> - Asalto a mano armada<br>
-                        🚗 <strong>Accidente</strong> - Accidente vial<br>
-                        ❓ <strong>Otro</strong> - Cualquier otro incidente
-                    </p>
-                </div>
-                
-                <div class="help-section">
-                    <h3>💾 Cómo Funciona el Backup</h3>
-                    <div class="step">
-                        <strong>Descargar Backup</strong>
-                        <p>Se crea un archivo JSON con todos tus reportes que puedes guardar en tu PC</p>
-                    </div>
-                    <div class="step">
-                        <strong>Compartir por WhatsApp</strong>
-                        <p>Abre WhatsApp y comparte el enlace + instrucciones con otros usuarios</p>
-                    </div>
-                    <div class="step">
-                        <strong>Restaurar Backup</strong>
-                        <p>Sube un archivo JSON para restaurar histórico de otra persona</p>
-                    </div>
-                </div>
-                
-                <div class="help-section">
-                    <h3>❓ Preguntas Frecuentes</h3>
-                    <div class="step">
-                        <strong>¿Dónde se guardan los datos?</strong>
-                        <p>En tu navegador (localStorage). No se envían a servidores</p>
-                    </div>
-                    <div class="step">
-                        <strong>¿Se pierden si limpio el navegador?</strong>
-                        <p>Sí. Por eso es importante hacer backup regularmente</p>
-                    </div>
-                    <div class="step">
-                        <strong>¿Puedo compartir con otros?</strong>
-                        <p>Sí. Descarga backup y comparte el archivo por WhatsApp o email</p>
-                    </div>
-                    <div class="step">
-                        <strong>¿Es privado?</strong>
-                        <p>Totalmente. Tus datos no salen de tu navegador</p>
-                    </div>
-                </div>
             </div>
         </div>
         
@@ -462,136 +372,268 @@
     
     <script>
         const DB_KEY = 'guardia_digital_reports';
-        const BACKUP_VERSION = '1.0';
+        let mediaActual = null;
+        let streamCamara = null;
+        let grabadorVideo = null;
+        let grabadorAudio = null;
+        
+        // ========== ALMACENAMIENTO ==========
         
         function guardarEnLocal(incidente) {
             let reportes = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
             reportes.push(incidente);
             localStorage.setItem(DB_KEY, JSON.stringify(reportes));
-            console.log(`[Guardia] ✅ Reporte guardado: ${incidente.uuid}`);
         }
         
         function cargarDelLocal() {
             return JSON.parse(localStorage.getItem(DB_KEY) || '[]');
         }
         
-        function contarIncidentes() {
-            const reportes = cargarDelLocal();
-            return {
-                totalIncidentes: reportes.length,
-                totalSospechosos: reportes.filter(r => r.tipo === 'sospechoso').length
-            };
-        }
-        
-        function switchTab(tabName) {
+        function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
+            document.getElementById(tab).classList.add('active');
             event.target.classList.add('active');
-            
-            if (tabName === 'incidentes') cargarIncidentes();
         }
         
-        function actualizarDashboard() {
-            const { totalIncidentes, totalSospechosos } = contarIncidentes();
-            document.getElementById('totalIncidentes').textContent = totalIncidentes;
-            document.getElementById('totalSospechosos').textContent = totalSospechosos;
-            
-            const reportes = cargarDelLocal();
-            let html = '<h3 style="color: var(--azul-oscuro); margin-bottom: 10px;">Últimos Reportes</h3>';
-            
-            if (reportes.length > 0) {
-                reportes.slice(-5).reverse().forEach(inc => {
-                    html += `
-                        <div class="incident-card">
-                            <strong>${inc.tipo.toUpperCase()}</strong>
-                            <div>${inc.descripcion}</div>
-                            <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha} ${inc.hora}</small>
-                        </div>
-                    `;
+        // ========== CÁMARA ==========
+        
+        async function abrirCamara() {
+            try {
+                streamCamara = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' },
+                    audio: false 
                 });
-            } else {
-                html += '<p style="text-align: center; color: #999; padding: 20px;">Sin reportes aún</p>';
+                const video = document.getElementById('camaraPreview');
+                video.srcObject = streamCamara;
+                document.getElementById('camaraContainer').style.display = 'block';
+            } catch (err) {
+                alert('Error accediendo a la cámara: ' + err.message);
+            }
+        }
+        
+        function capturarFoto() {
+            const video = document.getElementById('camaraPreview');
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            
+            mediaActual = canvas.toDataURL('image/jpeg', 0.8);
+            mostrarMediaPreview(mediaActual, 'image/jpeg');
+            cerrarCamara();
+        }
+        
+        function cerrarCamara() {
+            if (streamCamara) {
+                streamCamara.getTracks().forEach(track => track.stop());
+                streamCamara = null;
+            }
+            document.getElementById('camaraContainer').style.display = 'none';
+        }
+        
+        // ========== VIDEO & AUDIO ==========
+        
+        async function grabarVideo() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' }, 
+                    audio: true 
+                });
+                const video = document.getElementById('camaraPreview');
+                video.srcObject = stream;
+                document.getElementById('camaraContainer').style.display = 'block';
+                
+                const chunks = [];
+                grabadorVideo = new MediaRecorder(stream);
+                grabadorVideo.ondataavailable = e => chunks.push(e.data);
+                grabadorVideo.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'video/mp4' });
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        mediaActual = e.target.result;
+                        mostrarMediaPreview(mediaActual, 'video/mp4');
+                    };
+                    reader.readAsDataURL(blob);
+                    stream.getTracks().forEach(t => t.stop());
+                };
+                
+                grabadorVideo.start();
+                const btn = event.target;
+                btn.textContent = '⏹️ Detener Video';
+                btn.onclick = () => {
+                    grabadorVideo.stop();
+                    btn.textContent = '🎥 Video';
+                    cerrarCamara();
+                };
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+        
+        async function grabarAudio() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const chunks = [];
+                grabadorAudio = new MediaRecorder(stream);
+                grabadorAudio.ondataavailable = e => chunks.push(e.data);
+                grabadorAudio.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'audio/mp3' });
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        mediaActual = e.target.result;
+                        mostrarMediaPreview(mediaActual, 'audio/mp3');
+                    };
+                    reader.readAsDataURL(blob);
+                    stream.getTracks().forEach(t => t.stop());
+                };
+                
+                grabadorAudio.start();
+                const btn = event.target;
+                btn.classList.add('recording');
+                btn.textContent = '⏹️ Detener Audio';
+                btn.onclick = () => {
+                    grabadorAudio.stop();
+                    btn.classList.remove('recording');
+                    btn.textContent = '🎙️ Audio';
+                };
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+        
+        // ========== PREVIEW & SUBMIT ==========
+        
+        function agregarMedia(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    mediaActual = e.target.result;
+                    mostrarMediaPreview(mediaActual, file.type);
+                };
+                reader.readAsDataURL(file);
+            }
+            event.target.value = '';
+        }
+        
+        function mostrarMediaPreview(data, tipo) {
+            const preview = document.getElementById('mediaPreview');
+            let html = '<div class="media-badge">✅ Media Adjunta</div>';
+            
+            if (tipo.startsWith('image/')) {
+                html += `<div class="media-preview"><img src="${data}" alt="Foto"></div>`;
+            } else if (tipo.startsWith('video/')) {
+                html += `<div class="media-preview"><video controls src="${data}"></video></div>`;
+            } else if (tipo.startsWith('audio/')) {
+                html += `<div class="media-preview"><audio controls src="${data}"></audio></div>`;
             }
             
-            document.getElementById('dashboardContent').innerHTML = html;
+            preview.innerHTML = html;
         }
         
         function reportarIncidente(e) {
             e.preventDefault();
             
             const incidente = {
-                uuid: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-                    const r = Math.random() * 16 | 0;
-                    return (c === 'x' ? r : r & 0x3 | 0x8).toString(16);
-                }),
+                uuid: Date.now().toString(),
                 tipo: document.getElementById('tipo').value,
                 descripcion: document.getElementById('descripcion').value,
                 ubicacion: document.getElementById('ubicacion').value,
-                zona: document.getElementById('zona').value,
-                reportado_por: document.getElementById('reportado_por').value || 'Anónimo',
                 fecha: new Date().toISOString().split('T')[0],
-                hora: new Date().toTimeString().slice(0, 8)
+                hora: new Date().toTimeString().slice(0, 8),
+                multimedia: mediaActual || null
             };
             
-            const messageDiv = document.getElementById('reportarMessage');
+            guardarEnLocal(incidente);
             
-            try {
-                guardarEnLocal(incidente);
-                messageDiv.innerHTML = '<div class="message success">✅ Reporte guardado exitosamente</div>';
-                document.querySelector('form').reset();
-                actualizarDashboard();
-                setTimeout(() => messageDiv.innerHTML = '', 3000);
-            } catch (err) {
-                messageDiv.innerHTML = '<div class="message error">❌ Error al guardar</div>';
-                setTimeout(() => messageDiv.innerHTML = '', 3000);
-            }
+            const msg = document.getElementById('reportarMessage');
+            msg.innerHTML = '<div class="message success">✅ Reporte guardado</div>';
+            document.querySelector('form').reset();
+            document.getElementById('mediaPreview').innerHTML = '';
+            mediaActual = null;
+            actualizarDashboard();
+            
+            setTimeout(() => msg.innerHTML = '', 3000);
+        }
+        
+        function actualizarDashboard() {
+            const reportes = cargarDelLocal();
+            const conMedia = reportes.filter(r => r.multimedia).length;
+            
+            document.getElementById('totalIncidentes').textContent = reportes.length;
+            document.getElementById('totalMultimedia').textContent = conMedia;
+            
+            let html = '<h3>Últimos Reportes</h3>';
+            reportes.slice(-5).reverse().forEach(inc => {
+                html += `
+                    <div class="incident-card">
+                        <strong>${inc.tipo.toUpperCase()}</strong>
+                        ${inc.multimedia ? '<div class="media-badge">📸 Con Media</div>' : ''}
+                        <div>${inc.descripcion}</div>
+                        <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha}</small>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('dashboardContent').innerHTML = html;
         }
         
         function cargarIncidentes() {
             const container = document.getElementById('incidentesContainer');
             const reportes = cargarDelLocal();
             
-            if (reportes.length > 0) {
-                let html = '';
-                reportes.slice().reverse().forEach(inc => {
-                    html += `
-                        <div class="incident-card">
-                            <strong>${inc.tipo.toUpperCase()}</strong>
-                            <div>${inc.descripcion}</div>
-                            <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha} ${inc.hora}</small>
-                            ${inc.reportado_por ? `<small>👤 ${inc.reportado_por}</small>` : ''}
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
-            } else {
-                container.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Sin reportes aún</p>';
+            if (reportes.length === 0) {
+                container.innerHTML = '<p style="text-align:center;color:#999">Sin reportes</p>';
+                return;
             }
+            
+            let html = '';
+            reportes.slice().reverse().forEach(inc => {
+                html += `
+                    <div class="incident-card">
+                        <strong>${inc.tipo.toUpperCase()}</strong>
+                        ${inc.multimedia ? '<div class="media-badge">📸 Con Media</div>' : ''}
+                        <div>${inc.descripcion}</div>
+                        <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha} ${inc.hora}</small>
+                `;
+                
+                if (inc.multimedia) {
+                    const tipo = inc.multimedia.substring(5, 20);
+                    if (tipo.includes('image')) {
+                        html += `<div class="media-preview"><img src="${inc.multimedia}" style="max-width:100%;"></div>`;
+                    } else if (tipo.includes('video')) {
+                        html += `<div class="media-preview"><video controls src="${inc.multimedia}" style="max-width:100%;"></video></div>`;
+                    } else if (tipo.includes('audio')) {
+                        html += `<div class="media-preview"><audio controls src="${inc.multimedia}" style="max-width:100%;"></audio></div>`;
+                    }
+                }
+                
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
         }
         
         function descargarBackup() {
             const reportes = cargarDelLocal();
             const backup = {
-                version: BACKUP_VERSION,
-                fecha_backup: new Date().toISOString(),
-                total_reportes: reportes.length,
+                fecha: new Date().toISOString(),
+                total: reportes.length,
                 datos: reportes
             };
             
-            const json = JSON.stringify(backup, null, 2);
-            const blob = new Blob([json], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = `guardia-backup-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
             const msg = document.getElementById('backupMessage');
-            msg.innerHTML = '<div class="message success">✅ Backup descargado correctamente</div>';
+            msg.innerHTML = '<div class="message success">✅ Backup descargado</div>';
             setTimeout(() => msg.innerHTML = '', 3000);
         }
         
@@ -600,233 +642,28 @@
             if (!file) return;
             
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = e => {
                 try {
                     const backup = JSON.parse(e.target.result);
-                    
-                    if (!backup.datos || !Array.isArray(backup.datos)) {
-                        throw new Error('Formato de backup inválido');
-                    }
-                    
                     localStorage.setItem(DB_KEY, JSON.stringify(backup.datos));
                     
                     const msg = document.getElementById('backupMessage');
                     msg.innerHTML = `<div class="message success">✅ ${backup.datos.length} reportes restaurados</div>`;
-                    setTimeout(() => msg.innerHTML = '', 3000);
-                    
                     actualizarDashboard();
-                    cargarIncidentes();
+                    setTimeout(() => msg.innerHTML = '', 3000);
                 } catch (err) {
                     const msg = document.getElementById('backupMessage');
-                    msg.innerHTML = `<div class="message error">❌ Error: ${err.message}</div>`;
-                    setTimeout(() => msg.innerHTML = '', 3000);
+                    msg.innerHTML = '<div class="message error">❌ Error: archivo inválido</div>';
                 }
             };
             reader.readAsText(file);
             event.target.value = '';
         }
         
-        function compartirWhatsApp() {
-            const reportes = cargarDelLocal();
-            const texto = `📊 *Guardia Digital - Reporte de Seguridad*\n\n` +
-                `Total de reportes: ${reportes.length}\n` +
-                `Fecha: ${new Date().toLocaleDateString('es-CO')}\n\n` +
-                `🔗 Descarga el backup completo en: https://haroldco45.github.io/guardiadigital/\n\n` +
-                `Desarrollada por Vibras Positivas HM`;
-            
-            const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
-            window.open(url, '_blank');
-        }
-        
-        function descargarManual() {
-            const manual = `GUARDIA DIGITAL - MANUAL DE USO
-=====================================
-
-VERSION: 2.1
-FECHA: 20/07/2026
-
-🛡️ INTRODUCCIÓN
-================
-Guardia Digital es una aplicación para reportar incidentes de seguridad
-en tu barrio. Los datos se guardan localmente en tu navegador y pueden
-compartirse con otros usuarios mediante backup.
-
-📋 CONTENIDO
-================
-
-1. PESTAÑAS PRINCIPALES
-2. CÓMO REPORTAR
-3. HISTÓRICO DE REPORTES
-4. BACKUP Y COMPARTIR
-5. PRIVACIDAD Y SEGURIDAD
-6. PREGUNTAS FRECUENTES
-
-1. PESTAÑAS PRINCIPALES
-================
-
-📊 DASHBOARD
-- Resumen con total de incidentes
-- Últimos 5 reportes
-- Contador de sospechosos
-
-📝 REPORTAR
-- Formulario para crear nuevo reporte
-- Selecciona tipo de incidente
-- Completa descripción y ubicación
-
-📋 HISTÓRICO
-- Ver todos los reportes guardados
-- Ordenados por fecha (más reciente primero)
-- Ver detalles de cada reporte
-
-💾 BACKUP
-- Descargar backup en formato JSON
-- Subir backup para restaurar datos
-- Compartir por WhatsApp
-
-❓ AYUDA
-- Guía completa de uso
-- Preguntas frecuentes
-- Descargar manual
-
-2. CÓMO REPORTAR
-================
-
-PASO 1: Click en pestaña "📝 Reportar"
-
-PASO 2: Selecciona el tipo de incidente:
-- 🚗 Robo de vehículo
-- 🏠 Robo a residencia
-- 🏪 Robo a comercio
-- 👤 Sospechoso rondando
-- ⚠️ Asalto
-- 🚗 Accidente
-- ❓ Otro
-
-PASO 3: Completa la información:
-- DESCRIPCIÓN*: Cuéntanos qué pasó
-- UBICACIÓN*: Calle o sector donde ocurrió
-- ZONA: Barrio (opcional)
-- NOMBRE/TELÉFONO: Tu contacto (opcional)
-
-PASO 4: Click en "📤 Enviar Reporte"
-
-El reporte se guarda automáticamente en tu navegador.
-
-3. HISTÓRICO DE REPORTES
-================
-
-Para ver todos tus reportes:
-1. Click en pestaña "📋 Histórico"
-2. Click en "🔄 Actualizar" para refrescar
-3. Ver lista de reportes ordenados por fecha
-
-Cada reporte muestra:
-- Tipo de incidente
-- Descripción
-- Ubicación
-- Fecha y hora
-- Reportado por (si lo ingresaste)
-
-4. BACKUP Y COMPARTIR
-================
-
-DESCARGAR BACKUP:
-1. Click en pestaña "💾 Backup"
-2. Click en "📥 Descargar Backup (JSON)"
-3. Se descarga archivo: guardia-backup-2026-07-20.json
-4. Guarda en tu PC para seguridad
-
-COMPARTIR POR WHATSAPP:
-1. Click en pestaña "💾 Backup"
-2. Click en "💬 Compartir por WhatsApp"
-3. Se abre WhatsApp con resumen
-4. Comparte con otros usuarios
-
-RESTAURAR BACKUP:
-1. Click en pestaña "💾 Backup"
-2. Click en "📤 Subir Backup (Restaurar)"
-3. Selecciona archivo guardia-backup-*.json
-4. Se restauran todos los reportes
-
-FLUJO COMPARTIDO:
-Usuario A → Descarga backup → Comparte por WhatsApp
-Usuario B → Recibe archivo → Sube en la app
-Usuario B → Ve todos los reportes de Usuario A
-
-5. PRIVACIDAD Y SEGURIDAD
-================
-
-✅ LO QUE GUARDAMOS:
-- Tipo de incidente
-- Descripción
-- Ubicación
-- Zona/Barrio
-- Tu nombre (si lo proporcionas)
-- Fecha y hora
-
-❌ LO QUE NO GUARDAMOS:
-- Ubicación GPS
-- Fotos o videos
-- Datos bancarios
-- Información personal completa
-
-🔐 PRIVACIDAD:
-- Los datos solo se guardan en tu navegador
-- NO se envían a ningún servidor
-- Tú tienes control total de tus datos
-- Descarga backup para tener copia
-
-⚠️ IMPORTANTE:
-Si limpias el caché del navegador, se pierden los datos.
-Por eso es importante hacer backup regularmente.
-
-6. PREGUNTAS FRECUENTES
-================
-
-P: ¿Dónde se guardan los datos?
-R: En tu navegador (localStorage). No en servidores.
-
-P: ¿Se pierden si reinicio el navegador?
-R: No, se mantienen. Solo se pierden si limpias caché.
-
-P: ¿Puedo compartir con otros?
-R: Sí. Descarga backup y comparte archivo por WhatsApp.
-
-P: ¿Es privado?
-R: Totalmente privado. Datos solo en tu navegador.
-
-P: ¿Cuántos reportes puedo guardar?
-R: Hasta ~10 MB de datos por navegador (cientos de reportes).
-
-P: ¿Funciona sin internet?
-R: Sí, una vez cargada la app. Guardado es local.
-
-P: ¿Otros usuarios ven mis reportes?
-R: Solo si compartís backup explícitamente.
-
-P: ¿Puedo eliminar reportes?
-R: Sí, restaurando backup anterior (sin ese reporte).
-
-=====================================
-DESARROLLADA POR VIBRAS POSITIVAS HM
-Derechos de Autor Reservados
-=====================================`;
-            
-            const blob = new Blob([manual], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Guardia-Digital-Manual-${new Date().toISOString().split('T')[0]}.txt`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
         window.addEventListener('load', () => {
-            console.log('[Guardia] 🚀 Iniciando app');
+            console.log('[Guardia] 🚀 v3.0 - Con Multimedia');
             actualizarDashboard();
+            document.getElementById('incidentes').addEventListener('click', cargarIncidentes);
         });
     </script>
 </body>
