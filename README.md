@@ -1,91 +1,149 @@
-# 🛡️ Guardia Digital
+🛡️ GUARDIA DIGITAL - DESPLIEGUE EN NETLIFY
+==========================================
 
-**Vigilancia Colaborativa del Barrio** — App PWA de seguridad comunitaria para registrar, analizar y prevenir robos en tu comunidad.
+ARQUITECTURA FINAL:
+===================
 
----
+App (Netlify) → Netlify Functions → API Local (3001) → MySQL (Hostinger)
 
-## ✨ Características
+Hostinger solo tiene la BD (MySQL)
+El PHP proxy de Hostinger NO se necesita
 
-- 📸 **Reportar Incidentes** — Foto, video, descripción, ubicación, fecha y hora
-- 👤 **Galería de Sospechosos** — Identifica patrones de personas reportadas múltiples veces
-- 🔍 **Análisis de Patrones** — Detecta sospechosos reincidentes automáticamente
-- 📊 **Dashboard en Vivo** — Stats de incidentes, zonas críticas, alertas
-- 📱 **Funciona Offline** — Sin conexión a internet necesaria
-- 💾 **Almacenamiento Local** — Todos los datos guardados en tu dispositivo
-- 📥 **Exportar Datos** — Descarga todo como JSON para backup
-- 📲 **Compartible** — Enlaza a vecinos sin necesidad de crear cuentas
 
----
+ARCHIVOS QUE NECESITAS:
+=======================
 
-## 🚀 Cómo Usar
+1. index.html (actualizado)
+2. netlify.toml (configuración)
+3. netlify/functions/guardia-proxy.js (proxy)
 
-1. **Abre la app** en tu navegador (mobile o desktop)
-2. **Ve a "Reportar"** y llena el formulario
-3. **Adjunta fotos/videos** (máx 5 archivos)
-4. **Envía el reporte** — se guarda automáticamente
-5. **Comparte con vecinos** — todos ven los incidentes reportados
 
----
+PASO A PASO - DESPLIEGUE (10 MINUTOS):
+=====================================
 
-## 📋 Secciones
+PASO 1: Preparar tu Repo en GitHub
+----------------------------------
 
-| Sección | Qué Hace |
-|---------|----------|
-| 📊 **Dashboard** | Resumen de incidentes, zonas críticas, sospechosos |
-| 👤 **Sospechosos** | Galería visual con filtros y búsqueda |
-| 📋 **Incidentes** | Timeline completa de todos los reportes |
-| 📸 **Reportar** | Formulario para crear nuevo incidente |
-| 🔍 **Análisis** | Patrones y estadísticas de seguridad |
+Tu repo es: https://github.com/haroldco45/guardia-digital
 
----
+1. En tu PC, clona el repo:
+   git clone https://github.com/haroldco45/guardia-digital.git
+   cd guardia-digital
 
-## 💾 Datos
+2. Crea la estructura de carpetas:
+   mkdir -p netlify/functions
 
-**Almacenamiento:** Local (localStorage del navegador)
-- Fotos y videos: Base64
-- Sin conexión de internet requerida
-- Exportable a JSON para backup
+3. Agrega los archivos:
+   - Copia index.html (actualizado) a la raíz
+   - Copia netlify.toml a la raíz
+   - Copia guardia-proxy.js a netlify/functions/
 
-**Privacidad:** Todos los datos quedan en tu dispositivo. No se envían a servidores externos.
 
----
+PASO 2: Subir a GitHub
+---------------------
 
-## 🔄 Próximas Actualizaciones
+En tu PC:
+   git add .
+   git commit -m "Despliegue Netlify: Agregar Functions proxy"
+   git push origin main
 
-- [ ] Integración con SQL Server para sincronización
-- [ ] Mapas interactivos (Google Maps)
-- [ ] Notificaciones push
-- [ ] Login por código del barrio
 
----
+PASO 3: Conectar con Netlify
+---------------------------
 
-## 📱 Compatible Con
+1. Ve a: https://app.netlify.com
+2. Haz clic en: "Add new site" → "Import an existing project"
+3. Selecciona: "GitHub"
+4. Busca y selecciona: "haroldco45/guardia-digital"
+5. Haz clic en: "Deploy site"
 
-- ✅ Chrome/Edge (Desktop & Mobile)
-- ✅ Firefox
-- ✅ Safari (iOS & macOS)
-- ✅ Cualquier navegador moderno
+Netlify se conectará automáticamente y hará deploy cada vez que hagas push a GitHub.
 
----
 
-## 🛠️ Instalación como App
+PASO 4: Configurar Variables de Entorno (IMPORTANTE)
+--------------------------------------------------
 
-**En Android:**
-1. Abre el navegador
-2. Presiona menú (⋮) → "Instalar app"
+En Netlify:
+1. Ve a: Site settings → Environment
+2. Agrega variable:
+   - Key: API_LOCAL
+   - Value: http://192.168.1.12:3001
 
-**En iPhone:**
-1. Abre en Safari
-2. Comparte → "Agregar a pantalla de inicio"
+O en netlify.toml ya está configurado por defecto.
 
----
 
-## 📞 Soporte
+PASO 5: Verificar que funciona
+-----------------------------
 
-Reportes de bugs o sugerencias → Contacta al desarrollador
+Después de deploy (1-2 minutos):
 
----
+1. Ve a: https://[tu-subdomain].netlify.app
+2. Debe decir: 🟢 Online
+3. Haz clic en "📸 Reportar"
+4. Llena el formulario con datos de prueba
+5. Haz clic en "Enviar Reporte"
+6. Debe decir: ✅ Reporte enviado exitosamente
 
-**Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados**
+Si dice "🔴 Offline":
+- Verifica que tu API local en puerto 3001 está ejecutándose
+- Verifica que Netlify Functions puede alcanzar 192.168.1.12:3001
 
-Seguridad comunitaria colaborativa | Bajo Cauca, Antioquia, Colombia
+
+PASO 6: Compartir con Vecinos
+----------------------------
+
+URL pública: https://[tu-subdomain].netlify.app
+
+Comparte esto con todos los vecinos del barrio.
+
+
+¿QUÉ PASA CON HOSTINGER?
+=========================
+
+ANTES:
+- PHP proxy en Hostinger ✅
+- MySQL en Hostinger ✅
+
+AHORA:
+- PHP proxy en Hostinger ❌ SE ELIMINA (ya no se necesita)
+- MySQL en Hostinger ✅ SE MANTIENE (es donde guardan los datos)
+
+Hostinger solo tiene la BD. Netlify Functions hace el proxy.
+
+
+ARQUITECTURA FINAL:
+====================
+
+Hostinger:
+├── MySQL guardia_dig ← MANTENER (base de datos)
+└── api-guardia.php ← ELIMINAR (ya no se necesita)
+
+Netlify:
+├── App index.html
+└── netlify/functions/guardia-proxy.js
+
+Tu PC:
+└── API Local (3001) → conecta a MySQL en Hostinger
+
+
+VENTAJAS:
+=========
+
+✅ Mucho más simple (sin PHP proxy)
+✅ Funciona igual que Cierre Diario (patrón probado)
+✅ Netlify Functions es más rápido que PHP
+✅ Todos los vecinos pueden acceder desde internet
+✅ Datos guardados en MySQL Hostinger (permanente)
+
+
+PRÓXIMOS PASOS:
+===============
+
+1. ✅ Preparar repo con archivos
+2. ✅ Subir a GitHub
+3. ✅ Conectar con Netlify
+4. ✅ Verificar que funciona
+5. ✅ Compartir URL con vecinos
+
+
+¡LISTO! 🛡️ Guardia Digital en producción
