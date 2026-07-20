@@ -279,6 +279,7 @@
             <button class="tab-btn" onclick="switchTab('reportar')">📸 Reportar</button>
             <button class="tab-btn" onclick="switchTab('incidentes')">📋 Histórico</button>
             <button class="tab-btn" onclick="switchTab('backup')">💾 Backup</button>
+            <button class="tab-btn" onclick="switchTab('ayuda')">❓ Ayuda</button>
         </div>
         
         <div class="content">
@@ -381,6 +382,54 @@
                     <p style="margin: 5px 0;">3️⃣ Adjunta el archivo descargado al mensaje</p>
                     <p style="margin: 5px 0;">4️⃣ Otros usuarios descargan de WhatsApp</p>
                     <p style="margin: 5px 0;">5️⃣ Click "📤 Restaurar Backup" para ver el histórico</p>
+                </div>
+            </div>
+            
+            <!-- Ayuda -->
+            <div id="ayuda" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">❓ Guía de Uso</h2>
+                
+                <button class="success" onclick="descargarManual()" style="margin-bottom: 15px;">📄 Descargar Manual (TXT)</button>
+                
+                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">🚀 Inicio Rápido</h3>
+                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
+                        <strong style="color: var(--azul-oscuro);">1. Reportar Incidente</strong>
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "📸 Reportar" → Completa el formulario → Adjunta foto/video/audio → Click "📤 Enviar"</p>
+                    </div>
+                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
+                        <strong style="color: var(--azul-oscuro);">2. Ver Histórico</strong>
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "📋 Histórico" para ver todos tus reportes con multimedia</p>
+                    </div>
+                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
+                        <strong style="color: var(--azul-oscuro);">3. Backup y Compartir</strong>
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "💾 Backup" → Descarga → Comparte por WhatsApp</p>
+                    </div>
+                </div>
+                
+                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📸 Multimedia</h3>
+                    <p style="font-size: 13px; color: #555; line-height: 1.8;">
+                        <strong>📷 Fotos:</strong> Captura desde cámara o sube de galería<br>
+                        <strong>🎥 Videos:</strong> Graba video con audio en tiempo real<br>
+                        <strong>🎙️ Audio:</strong> Graba solo sonido (anónimo)<br>
+                        <strong>📁 Archivos:</strong> Sube fotos/videos/audios guardados
+                    </p>
+                </div>
+                
+                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">💾 Backup Centralizado</h3>
+                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px;">
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>PC Central:</strong> Un usuario descarga backup y lo comparte</p>
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>Sincronización:</strong> Otros usuarios restauran para ver el histórico</p>
+                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>Multimedia incluida:</strong> Fotos, videos y audios se guardan con cada reporte</p>
+                    </div>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid var(--naranja-aviso);">
+                    <p style="font-size: 13px; color: #666; margin: 0;">
+                        <strong>💡 PRIVACIDAD:</strong> Todos tus datos se guardan solo en tu navegador. NO se envían a servidores. Tú tienes control total.
+                    </p>
                 </div>
             </div>
         </div>
@@ -708,6 +757,284 @@ https://haroldco45.github.io/guardiadigital/`;
             
             const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
             window.open(url, '_blank');
+        }
+        
+        function descargarManual() {
+            const manual = `GUARDIA DIGITAL v3.0 - MANUAL COMPLETO
+================================================
+
+VERSION: 3.0 CON MULTIMEDIA
+FECHA: 20/07/2026
+
+🛡️ INTRODUCCIÓN
+================================================
+Guardia Digital es una app para reportar incidentes de seguridad en tu barrio.
+✅ Fotos, videos y audio
+✅ Datos guardados localmente
+✅ Compartir histórico por WhatsApp
+✅ PC central con backup
+
+📋 PESTAÑAS PRINCIPALES
+================================================
+
+📊 DASHBOARD
+- Resumen con total de incidentes
+- Contador de reportes con multimedia
+- Últimos 5 reportes
+
+📸 REPORTAR
+- Formulario para nuevo reporte
+- Selecciona tipo de incidente
+- Adjunta foto/video/audio
+- Se guarda automáticamente
+
+📋 HISTÓRICO
+- Ver todos los reportes guardados
+- Ordenados por fecha (más reciente primero)
+- Visualiza multimedia adjunta
+
+💾 BACKUP
+- Descargar backup en JSON
+- Subir backup para restaurar datos
+- Compartir por WhatsApp
+- Sincronización de histórico
+
+❓ AYUDA
+- Guía de uso
+- Preguntas frecuentes
+- Descargar este manual
+
+🚀 CÓMO REPORTAR
+================================================
+
+PASO 1: Click en "📸 Reportar"
+
+PASO 2: Selecciona tipo de incidente:
+- 🚗 Robo de vehículo
+- 🏠 Robo a residencia
+- 👤 Sospechoso rondando
+- ⚠️ Asalto
+- 🚗 Accidente
+- ❓ Otro
+
+PASO 3: Completa información:
+- DESCRIPCIÓN*: Cuéntanos qué pasó
+- UBICACIÓN*: Dónde ocurrió
+- Otros campos opcionales
+
+PASO 4: AGREGA MULTIMEDIA (opcional):
+- 📷 FOTO: Toma desde cámara
+- 🎥 VIDEO: Graba video con audio
+- 🎙️ AUDIO: Graba solo sonido
+- 📁 ARCHIVO: Sube de galería
+
+PASO 5: Click "📤 Enviar Reporte"
+
+✅ Se guarda con multimedia en tu navegador
+
+📸 MULTIMEDIA - CÓMO USAR
+================================================
+
+FOTOS:
+1. Click "📷 Foto"
+2. Se abre cámara en vivo
+3. Click "📸 Capturar"
+4. Se muestra preview
+5. Completa el reporte
+
+VIDEOS:
+1. Click "🎥 Video"
+2. Graba mientras desees
+3. Click "⏹️ Detener Video"
+4. Se procesa automáticamente
+5. Se adjunta al reporte
+
+AUDIO:
+1. Click "🎙️ Audio"
+2. Botón rojo parpadeante (grabando)
+3. Habla lo que necesites
+4. Click "⏹️ Detener Audio"
+5. Se adjunta al reporte
+
+ARCHIVO:
+1. Click "📁 Archivo"
+2. Selecciona foto/video/audio
+3. Se carga automáticamente
+4. Se muestra preview
+
+💾 BACKUP CENTRALIZADO
+================================================
+
+¿POR QUÉ UN PC CENTRAL?
+- Uno reporta, otros ven el histórico
+- Sincronización en tiempo real
+- Respaldo en WhatsApp (nube)
+- Recuperación si alguien limpia navegador
+
+PASO A PASO:
+
+Usuario A (PC CENTRAL):
+1. Click "💾 Backup"
+2. Click "📥 Descargar Backup"
+3. Se descarga: guardia-backup-2026-07-20.json
+4. Guarda en PC
+
+Compartir en grupo WhatsApp:
+5. Click "💬 Compartir por WhatsApp"
+6. Se abre chat automáticamente
+7. Adjunta el archivo descargado
+8. Comparte en grupo
+
+Usuario B, C, D...:
+9. Reciben archivo en WhatsApp
+10. Descargan el .json
+11. Abren la app → Tab "Backup"
+12. Click "📤 Restaurar Backup"
+13. Seleccionan archivo
+14. ✅ VEN TODO EL HISTÓRICO + MULTIMEDIA
+
+TAMAÑO DEL BACKUP:
+- Sin multimedia: 1-5 KB
+- Con fotos: 100 KB - 2 MB
+- Con videos: 1-5 MB
+
+RECUPERACIÓN:
+Si alguien limpia caché:
+1. Otro usuario comparte backup
+2. Restaura en su teléfono
+3. Recupera todo el histórico
+
+❓ PREGUNTAS FRECUENTES
+================================================
+
+P: ¿Dónde se guardan los datos?
+R: En tu navegador (localStorage). No en servidores.
+
+P: ¿Se pierden si reinicio el navegador?
+R: No. Los datos permanecen. Solo se pierden si limpias caché.
+
+P: ¿Es privado?
+R: Totalmente. Los datos NUNCA salen de tu navegador.
+
+P: ¿Cuántos reportes puedo guardar?
+R: Hasta ~10 MB (cientos de reportes).
+
+P: ¿Funciona sin internet?
+R: Sí, después de cargar la app la primera vez.
+
+P: ¿Otros usuarios ven mis reportes?
+R: Solo si compartes backup explícitamente.
+
+P: ¿Puedo eliminar reportes?
+R: Sí, restaurando backup anterior sin ese reporte.
+
+P: ¿La multimedia se guarda en el backup?
+R: Sí, en Base64 (comprimido dentro del JSON).
+
+P: ¿Qué pasa si pierdo el backup?
+R: Si otro usuario tiene copia, puede compartir.
+
+🔒 PRIVACIDAD Y SEGURIDAD
+================================================
+
+✅ SE GUARDA:
+- Tipo de incidente
+- Descripción
+- Ubicación
+- Fecha y hora
+- Multimedia (fotos/videos/audios)
+
+❌ NO SE GUARDA:
+- Ubicación GPS
+- Datos bancarios
+- Información personal completa
+
+🔐 PRIVACIDAD GARANTIZADA:
+- Datos 100% privados en tu navegador
+- NO se envían a servidores
+- TÚ tienes control total
+- Descarga backup para tener copia física
+
+⚠️ IMPORTANTE:
+Si limpias el caché del navegador, se pierden los datos.
+Por eso es importante compartir backup regularmente.
+
+📱 COMPATIBILIDAD
+================================================
+
+FUNCIONA EN:
+✅ Chrome/Edge (desktop + móvil)
+✅ Firefox (desktop + móvil)
+✅ Safari (iPhone)
+✅ Navegadores Android modernos
+
+LIMITACIONES:
+⚠️ Navegadores muy antiguos no lo soportan
+⚠️ Safari pide permisos especiales
+
+💡 CASOS DE USO
+================================================
+
+REPORTAR ROBO:
+1. Toma foto del vehículo/lugar
+2. Graba video del sitio
+3. Adjunta ambos al reporte
+4. Comparte por WhatsApp
+
+DENUNCIAR SOSPECHOSO:
+1. Graba audio describiendo persona
+2. Toma foto del lugar
+3. Video de la ronda
+4. Todos los barrios ven la alerta
+
+ACCIDENTE:
+1. Video de daños
+2. Fotos de placa
+3. Audio de testigos
+4. Sincroniza con grupo
+
+BARRIO COMPLETO SEGURO:
+1. PC central recopila todo
+2. Descarga backup diariamente
+3. Comparte en grupo
+4. TODOS tienen mismo histórico
+
+🎯 RECOMENDACIONES
+================================================
+
+PARA UN BARRIO:
+1. Elige coordinador (PC central)
+2. Coordina reportes en la app
+3. Coordina descarga diaria de backup
+4. Comparte en WhatsApp del barrio
+5. Otros restauran para estar al día
+
+BACKUP:
+- Haz backup al menos 2-3 veces por semana
+- Ten copia en tu PC
+- Comparte en WhatsApp regularmente
+- Guarda archivos antiguos como respaldo
+
+PRIVACIDAD:
+- No compartas datos personales innecesarios
+- Usa "Anónimo" si prefieres
+- Solo comparte multimedia si es necesario
+
+================================================
+DESARROLLADA POR VIBRAS POSITIVAS HM
+Derechos de Autor Reservados
+Guardia Digital v3.0
+================================================`;
+            
+            const blob = new Blob([manual], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Guardia-Digital-Manual-v3.0-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
         
         window.addEventListener('load', () => {
