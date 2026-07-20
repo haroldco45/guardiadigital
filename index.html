@@ -19,7 +19,7 @@
     <title>Guardia Digital - Vigilancia Comunitaria</title>
     
     <!-- Open Graph Image (1200x630px SVG) -->
-    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231e3a5f;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%232d5a8c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23grad)'/%3E%3Ctext x='600' y='80' font-family='Arial, sans-serif' font-size='72' font-weight='bold' text-anchor='middle' fill='white'%3EGuardia Digital%3C/text%3E%3Ctext x='600' y='140' font-family='Arial, sans-serif' font-size='32' text-anchor='middle' fill='rgba(255,255,255,0.9)'%3EVigilancia Colaborativa del Barrio%3C/text%3E%3Ccircle cx='300' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='300' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E🛡️%3C/text%3E%3Ccircle cx='600' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='600' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E📸%3C/text%3E%3Ccircle cx='900' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='900' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E🔍%3C/text%3E%3Ctext x='600' y='580' font-family='Arial, sans-serif' font-size='20' text-anchor='middle' fill='rgba(255,255,255,0.8)'%3ERegistra incidentes • Identifica patrones • Protege tu comunidad%3C/text%3E%3C/svg%3E">
+    <meta property="og:image" content="https://haroldco45.github.io/guardia-digital/og-image.svg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/svg+xml">
@@ -1024,8 +1024,11 @@
                 </div>
 
                 <div style="margin-top: 2rem; padding: 1.5rem; background: var(--gris-claro); border-radius: 12px; text-align: center;">
-                    <p style="color: #7f8c8d; margin-bottom: 1rem;">¿Dudas? Tu barrio es más seguro cuando trabajamos juntos. 🤝</p>
-                    <p style="font-size: 0.9rem; opacity: 0.7;">Guardia Digital — Vigilancia Colaborativa del Barrio</p>
+                    <p style="color: #7f8c8d; margin-bottom: 1.5rem;">¿Dudas? Tu barrio es más seguro cuando trabajamos juntos. 🤝</p>
+                    <button onclick="descargarManualPDF()" class="btn btn-primary" style="max-width: 300px; margin: 0 auto;">
+                        📥 Descargar Manual en PDF
+                    </button>
+                    <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">Guardia Digital — Vigilancia Colaborativa del Barrio</p>
                 </div>
             </div>
         </section>
@@ -1044,6 +1047,8 @@
         <p>Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados</p>
         <p style="margin-top: 0.5rem; opacity: 0.6;">Vigilancia comunitaria colaborativa | Seguridad del barrio</p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <script>
         // ======================== DATA MANAGEMENT ========================
@@ -1463,6 +1468,89 @@
             mediaInput.files = files;
             mediaInput.dispatchEvent(new Event('change'));
         });
+
+        // ======================== DESCARGAR MANUAL PDF ========================
+
+        function descargarManualPDF() {
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div style="font-family: Arial, sans-serif; padding: 40px; color: #2c3e50;">
+                    <h1 style="text-align: center; color: #1e3a5f; font-size: 28px; margin-bottom: 30px;">
+                        📋 GUARDIA DIGITAL
+                    </h1>
+                    <h2 style="text-align: center; color: #2d5a8c; font-size: 20px; margin-bottom: 40px;">
+                        Manual de Usuario — Vigilancia Colaborativa del Barrio
+                    </h2>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">📸 PASO 1: REPORTAR UN INCIDENTE</h3>
+                    <p style="line-height: 1.6;">1. Ve a la pestaña "Reportar"</p>
+                    <p style="line-height: 1.6;">2. Selecciona el tipo de incidente: Robo, Atraco, Hurto, Persona Sospechosa</p>
+                    <p style="line-height: 1.6;">3. Describe qué pasó, quién estaba involucrado, descripción física del delincuente</p>
+                    <p style="line-height: 1.6;">4. Indica la ubicación (calle, carrera, sector)</p>
+                    <p style="line-height: 1.6;">5. Selecciona fecha y hora del incidente</p>
+                    <p style="line-height: 1.6;">6. Adjunta hasta 5 fotos o videos (¡las fotos son críticas!)</p>
+                    <p style="line-height: 1.6;">7. Marca la confirmación de veracidad</p>
+                    <p style="line-height: 1.6;">8. Envía el reporte</p>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">👤 PASO 2: VER SOSPECHOSOS REPORTADOS</h3>
+                    <p style="line-height: 1.6;">1. Ve a la pestaña "Sospechosos"</p>
+                    <p style="line-height: 1.6;">2. Verás tarjetas con fotos de cada persona reportada</p>
+                    <p style="line-height: 1.6;">3. Si ves ⚠️ con número rojo = fue reportada múltiples veces (ALERTA)</p>
+                    <p style="line-height: 1.6;">4. Haz clic en cualquier tarjeta para ver todos los incidentes</p>
+                    <p style="line-height: 1.6;">5. Usa búsqueda y filtros para encontrar por zona</p>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">🔍 PASO 3: ANALIZAR PATRONES</h3>
+                    <p style="line-height: 1.6;">1. Ve a la pestaña "Análisis"</p>
+                    <p style="line-height: 1.6;">2. Verás sospechosos más peligrosos (reportados múltiples veces)</p>
+                    <p style="line-height: 1.6;">3. Estadísticas generales del barrio</p>
+                    <p style="line-height: 1.6;">4. Patrones de delincuencia</p>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">📊 DASHBOARD</h3>
+                    <p style="line-height: 1.6;">• Incidentes Registrados: total de reportes</p>
+                    <p style="line-height: 1.6;">• Sospechosos Identificados: personas diferentes reportadas</p>
+                    <p style="line-height: 1.6;">• Reportados Múltiples Veces: reincidentes (ALERTA)</p>
+                    <p style="line-height: 1.6;">• Zona Más Crítica: dónde hay más incidentes</p>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">❓ PREGUNTAS FRECUENTES</h3>
+                    <p style="line-height: 1.6;"><strong>¿Dónde se guardan mis datos?</strong></p>
+                    <p style="line-height: 1.6; margin-bottom: 15px;">En tu teléfono o computadora. No se envían a internet.</p>
+
+                    <p style="line-height: 1.6;"><strong>¿Puedo usar sin WiFi?</strong></p>
+                    <p style="line-height: 1.6; margin-bottom: 15px;">Sí, funciona 100% sin conexión.</p>
+
+                    <p style="line-height: 1.6;"><strong>¿Cómo exporto mis datos?</strong></p>
+                    <p style="line-height: 1.6; margin-bottom: 15px;">Haz clic en 📥 en la parte superior. Descargarás un archivo JSON.</p>
+
+                    <p style="line-height: 1.6;"><strong>¿Puedo instalar como app?</strong></p>
+                    <p style="line-height: 1.6; margin-bottom: 15px;">Android: Menú (⋮) → "Instalar app". iPhone: Comparte → "Agregar a pantalla de inicio".</p>
+
+                    <h3 style="color: #1e3a5f; margin-top: 30px; margin-bottom: 15px; font-size: 16px;">💡 CONSEJOS PARA MEJORES REPORTES</h3>
+                    <p style="line-height: 1.6;">✓ Sé específico: "Hombre ~25 años, cicatriz en mejilla" es mejor que "tipo sospechoso"</p>
+                    <p style="line-height: 1.6;">✓ Las fotos son críticas: toma foto del sospechoso (con cuidado)</p>
+                    <p style="line-height: 1.6;">✓ Hora exacta: ayuda a patrones</p>
+                    <p style="line-height: 1.6;">✓ Solo reporta lo que viste personalmente</p>
+                    <p style="line-height: 1.6;">✓ Comparte el link: cuantos más vecinos usen, más seguro es el barrio</p>
+
+                    <hr style="margin-top: 40px; border: none; border-top: 2px solid #bdc3c7;">
+                    <p style="text-align: center; margin-top: 30px; font-size: 12px; color: #7f8c8d;">
+                        Guardia Digital — Vigilancia Colaborativa del Barrio<br/>
+                        Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados<br/>
+                        Bajo Cauca, Antioquia, Colombia
+                    </p>
+                </div>
+            `;
+
+            const opt = {
+                margin: 10,
+                filename: 'Guardia-Digital-Manual.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+            alert('✅ Manual descargado como PDF');
+        }
     </script>
 </head>
 </html>
