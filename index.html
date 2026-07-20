@@ -461,8 +461,13 @@
     </div>
     
     <script>
-        // Configuración
-        const API_URL = 'http://192.168.1.12:3001/api/guardia';
+        // Configuración - USA NETLIFY FUNCTIONS COMO PROXY
+        // En desarrollo local: http://localhost:8888
+        // En producción: https://tudominio.netlify.app
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8888/api/guardia'
+            : '/api/guardia';
+        
         let offlineQueue = [];
         
         // Cargar datos guardados localmente
