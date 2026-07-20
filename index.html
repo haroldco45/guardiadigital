@@ -18,6 +18,12 @@
     
     <title>Guardia Digital - Vigilancia Comunitaria</title>
     
+    <!-- Open Graph Image (1200x630px SVG) -->
+    <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231e3a5f;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%232d5a8c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23grad)'/%3E%3Ctext x='600' y='80' font-family='Arial, sans-serif' font-size='72' font-weight='bold' text-anchor='middle' fill='white'%3EGuardia Digital%3C/text%3E%3Ctext x='600' y='140' font-family='Arial, sans-serif' font-size='32' text-anchor='middle' fill='rgba(255,255,255,0.9)'%3EVigilancia Colaborativa del Barrio%3C/text%3E%3Ccircle cx='300' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='300' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E🛡️%3C/text%3E%3Ccircle cx='600' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='600' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E📸%3C/text%3E%3Ccircle cx='900' cy='350' r='80' fill='rgba(255,255,255,0.2)' stroke='white' stroke-width='3'/%3E%3Ctext x='900' y='370' font-family='Arial, sans-serif' font-size='48' text-anchor='middle' fill='white'%3E🔍%3C/text%3E%3Ctext x='600' y='580' font-family='Arial, sans-serif' font-size='20' text-anchor='middle' fill='rgba(255,255,255,0.8)'%3ERegistra incidentes • Identifica patrones • Protege tu comunidad%3C/text%3E%3C/svg%3E">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/svg+xml">
+    
     <style>
         * {
             margin: 0;
@@ -756,6 +762,7 @@
         <button class="tab-btn" data-tab="incidentes">📋 Incidentes</button>
         <button class="tab-btn" data-tab="reportar">📸 Reportar</button>
         <button class="tab-btn" data-tab="analisis">🔍 Análisis</button>
+        <button class="tab-btn" data-tab="manual">❓ Ayuda</button>
     </nav>
 
     <!-- Main Content -->
@@ -876,6 +883,151 @@
         <section id="analisis" class="section">
             <h2 style="margin-bottom: 1.5rem;">🔍 Análisis de Patrones</h2>
             <div id="analisisContent"></div>
+        </section>
+
+        <!-- Manual/Ayuda -->
+        <section id="manual" class="section">
+            <div style="max-width: 900px;">
+                <h2 style="margin-bottom: 2rem;">❓ Manual de Uso — Guardia Digital</h2>
+
+                <!-- Paso 1 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 4px solid var(--azul-medio);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">📸 Paso 1: Reportar un Incidente</h3>
+                    <p style="margin-bottom: 1rem;"><strong>¿Cuándo reportar?</strong> Cuando veas un robo, atraco, hurto o persona sospechosa.</p>
+                    <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Haz clic en la pestaña <strong>"📸 Reportar"</strong></li>
+                        <li>Selecciona el <strong>tipo de incidente:</strong>
+                            <ul style="margin: 0.5rem 0; margin-left: 1rem;">
+                                <li><strong>🏪 Robo:</strong> Robo a tienda, casa o negocio</li>
+                                <li><strong>🚨 Atraco:</strong> Asalto a persona con violencia</li>
+                                <li><strong>👝 Hurto:</strong> Robo sin violencia a persona</li>
+                                <li><strong>👁️ Persona sospechosa:</strong> Alguien rondando sin razón aparente</li>
+                            </ul>
+                        </li>
+                        <li>Llena la <strong>descripción:</strong>
+                            <p style="margin: 0.5rem 0; color: #7f8c8d; font-size: 0.9rem;">Sé específico: ¿A quién robaron? ¿Qué se llevaron? ¿Cómo iba el/la delincuente vestido/a? ¿Color de piel, altura, tatuajes, cicatrices?</p>
+                        </li>
+                        <li>Indica la <strong>ubicación:</strong> Calle, carrera, sector, esquina</li>
+                        <li>Selecciona la <strong>fecha y hora</strong> del incidente</li>
+                        <li>📁 <strong>Sube fotos o videos:</strong> Arrastra archivos o haz clic
+                            <p style="margin: 0.5rem 0; color: #7f8c8d; font-size: 0.9rem;">Máximo 5 archivos. Si tienes foto del sospechoso, ¡es crítica!</p>
+                        </li>
+                        <li>✅ Marca <strong>"Confirmo que esta información es precisa"</strong></li>
+                        <li>Haz clic en <strong>"Enviar Reporte"</strong></li>
+                    </ol>
+                    <div style="background: rgba(39,174,96,0.1); padding: 1rem; border-radius: 8px; color: var(--verde-seguro); font-weight: 600;">
+                        ✅ ¡Listo! Tu reporte se guardó automáticamente en el dispositivo.
+                    </div>
+                </div>
+
+                <!-- Paso 2 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 4px solid var(--naranja-aviso);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">👤 Paso 2: Ver Sospechosos Reportados</h3>
+                    <p style="margin-bottom: 1rem;"><strong>¿Para qué?</strong> Identifica personas que ya han sido reportadas.</p>
+                    <ol style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Ve a la pestaña <strong>"👤 Sospechosos"</strong></li>
+                        <li>Verás <strong>tarjetas con fotos</strong> de cada persona reportada</li>
+                        <li>Si ves un <strong>⚠️ ícono rojo con número,</strong> significa que esa persona fue reportada <strong>múltiples veces</strong> — ¡Alerta!</li>
+                        <li>Haz <strong>clic en cualquier tarjeta</strong> para ver:
+                            <ul style="margin: 0.5rem 0; margin-left: 1rem;">
+                                <li>Zona donde fue avistado/a</li>
+                                <li>Todos los incidentes en los que aparece</li>
+                                <li>Fechas y detalles</li>
+                            </ul>
+                        </li>
+                        <li>Usa la <strong>barra de búsqueda</strong> para encontrar por descripción</li>
+                        <li>Filtra por <strong>zona</strong> si lo necesitas</li>
+                    </ol>
+                    <div style="background: rgba(231,76,60,0.1); padding: 1rem; border-radius: 8px; color: var(--rojo-alerta); font-weight: 600;">
+                        ⚠️ Si ves a alguien de esta lista, ¡contacta a la policía!
+                    </div>
+                </div>
+
+                <!-- Paso 3 -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 4px solid var(--verde-seguro);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">🔍 Paso 3: Analizar Patrones</h3>
+                    <p style="margin-bottom: 1rem;"><strong>¿Para qué?</strong> Identifica sospechosos reincidentes y tendencias.</p>
+                    <ol style="margin-left: 1.5rem;">
+                        <li>Ve a la pestaña <strong>"🔍 Análisis"</strong></li>
+                        <li>Verás un resumen de:
+                            <ul style="margin: 0.5rem 0; margin-left: 1rem;">
+                                <li>👤 <strong>Sospechosos más peligrosos:</strong> Los que más veces aparecen</li>
+                                <li>📊 <strong>Estadísticas generales:</strong> Total de incidentes, zonas críticas</li>
+                                <li>📈 <strong>Patrones:</strong> Qué tipo de delito es más común</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Dashboard -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 4px solid var(--azul-oscuro);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">📊 Dashboard — Tu Resumen de Seguridad</h3>
+                    <p style="margin-bottom: 1rem;">La primera pestaña te muestra en tiempo real:</p>
+                    <ul style="margin-left: 1.5rem;">
+                        <li><strong>📋 Incidentes Registrados:</strong> Cuántos reportes hay en total</li>
+                        <li><strong>👤 Sospechosos Identificados:</strong> Cuántas personas diferentes han sido reportadas</li>
+                        <li><strong>⚠️ Reportados Múltiples Veces:</strong> Cuántos son reincidentes (ALERTA)</li>
+                        <li><strong>📍 Zona Más Crítica:</strong> Dónde ocurren más incidentes</li>
+                    </ul>
+                </div>
+
+                <!-- FAQ -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">❓ Preguntas Frecuentes</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Dónde se guardan mis datos?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">En tu teléfono o computadora. No se envían a internet a menos que conectemos la base de datos (opción futura).</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Puedo usar esto sin WiFi?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">Sí, funciona 100% sin conexión. Tus reportes se guardan automáticamente.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Puedo compartir con mis vecinos?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">Sí. Cuando conectemos la base de datos, podrán ver todos los reportes del barrio. Por ahora cada dispositivo tiene su copia.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Qué pasa si cierro la aplicación?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">Tus datos permanecen guardados. Cuando abras de nuevo, verás todos tus reportes anteriores.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Cómo exporto mis datos?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">Haz clic en el botón 📥 en la parte superior. Descargarás un archivo JSON con todos tus reportes.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Qué es un "Sospechoso Repetido"?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;">Alguien que aparece en 2 o más reportes diferentes. La app automáticamente detecta si es la misma persona.</p>
+                    </div>
+
+                    <div>
+                        <p style="font-weight: 600; color: var(--texto); margin-bottom: 0.5rem;">¿Puedo instalar esto como una app?</p>
+                        <p style="color: #7f8c8d; margin-left: 1rem;"><strong>Android:</strong> Menú (⋮) → "Instalar app". <strong>iPhone:</strong> Comparte → "Agregar a pantalla de inicio".</p>
+                    </div>
+                </div>
+
+                <!-- Consejos -->
+                <div style="background: rgba(243,156,18,0.1); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--naranja-aviso);">
+                    <h3 style="color: var(--azul-oscuro); margin-bottom: 1rem;">💡 Consejos para Reportes Mejores</h3>
+                    <ul style="margin-left: 1.5rem; color: #7f8c8d;">
+                        <li><strong>Sé específico:</strong> "Hombre, ~25 años, cicatriz en mejilla" es mejor que "tipo sospechoso"</li>
+                        <li><strong>Foto es crítica:</strong> Si puedes, toma foto del sospechoso (con cuidado)</li>
+                        <li><strong>Hora exacta:</strong> Ayuda a patrones</li>
+                        <li><strong>Veraz:</strong> Reporta solo lo que viste personalmente</li>
+                        <li><strong>Comparte el link:</strong> Cuantos más vecinos usen, más datos = más seguridad</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--gris-claro); border-radius: 12px; text-align: center;">
+                    <p style="color: #7f8c8d; margin-bottom: 1rem;">¿Dudas? Tu barrio es más seguro cuando trabajamos juntos. 🤝</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Guardia Digital — Vigilancia Colaborativa del Barrio</p>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -1238,6 +1390,7 @@
             if (tabName === 'incidentes') renderIncidentes();
             if (tabName === 'analisis') renderAnalisis();
             if (tabName === 'dashboard') renderDashboard();
+            if (tabName === 'manual') {} // Manual no requiere renderizado, está en HTML estático
         }
 
         // ======================== EXPORTS & ACTIONS ========================
