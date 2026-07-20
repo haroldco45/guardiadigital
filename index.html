@@ -311,6 +311,7 @@
             <button class="tab-btn" onclick="switchTab('reportar')">📸 Reportar</button>
             <button class="tab-btn" onclick="switchTab('incidentes')">📋 Incidentes</button>
             <button class="tab-btn" onclick="switchTab('sospechosos')">👁️ Sospechosos</button>
+            <button class="tab-btn" onclick="switchTab('ayuda')">❓ Ayuda</button>
         </div>
         
         <div class="content">
@@ -380,6 +381,77 @@
             <div id="sospechosos" class="tab-content">
                 <button onclick="cargarSospechosos()" style="margin-bottom: 15px;">🔄 Actualizar</button>
                 <div id="sospechososContainer"></div>
+            </div>
+            
+            <!-- AYUDA -->
+            <div id="ayuda" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px; font-size: 18px;">🛡️ Manual del Usuario</h2>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">📊 Dashboard</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Visualiza estadísticas en tiempo real: total de incidentes reportados, sospechosos identificados y los últimos reportes de la comunidad.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">📸 Reportar Incidente</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 10px;">
+                    <strong>Cómo reportar:</strong>
+                </p>
+                <ol style="font-size: 14px; line-height: 1.8; color: #333; margin-bottom: 15px; padding-left: 20px;">
+                    <li>Selecciona el tipo de incidente (Robo, Atraco, Hurto, Sospechoso)</li>
+                    <li>Describe detalladamente lo que viste</li>
+                    <li>Indica la ubicación exacta (Calle, número)</li>
+                    <li>Especifica la zona o barrio</li>
+                    <li>Opcionalmente, deja tu teléfono (puedes ser anónimo)</li>
+                    <li>Haz clic en "Enviar Reporte"</li>
+                </ol>
+                <p style="font-size: 13px; background: #fff3cd; padding: 10px; border-radius: 8px; color: #856404; margin-bottom: 15px;">
+                    ⚠️ <strong>Importante:</strong> Sé honesto y preciso en tu descripción. Los reportes falsos afectan la seguridad de todos.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">📋 Ver Incidentes</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Consulta todos los reportes de la comunidad. Verás detalles de cada incidente, ubicación y fecha. Los datos se actualizan en tiempo real.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">👁️ Sospechosos</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Personas identificadas en múltiples reportes. El sistema consolida automáticamente descripciones similares para crear un perfil de sospechosos.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">🟢 Estado Online/Offline</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    <span style="background: #d4edda; padding: 3px 8px; border-radius: 4px; font-weight: 600;">🟢 Online</span> = conectado a la base de datos. Tus reportes se guardan inmediatamente.
+                    <br>
+                    <span style="background: #f8d7da; padding: 3px 8px; border-radius: 4px; font-weight: 600; margin-top: 5px; display: inline-block;">🔴 Offline</span> = sin conexión. Los reportes se guardan localmente y se enviarán cuando haya conexión.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">⚖️ Privacidad y Seguridad</h3>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Todos los datos se guardan en una base de datos segura en Hostinger. Puedes reportar de forma anónima si lo deseas. Nunca compartas información personal innecesaria.
+                </p>
+                
+                <h3 style="color: var(--azul-medio); margin-top: 15px; margin-bottom: 10px; font-size: 15px;">❓ Preguntas Frecuentes</h3>
+                <p style="font-size: 14px; font-weight: 600; color: var(--azul-oscuro); margin-top: 10px;">¿Puedo reportar de forma anónima?</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Sí, el campo de nombre/teléfono es opcional. Si lo dejas en blanco, tu reporte aparecerá como "Anónimo".
+                </p>
+                
+                <p style="font-size: 14px; font-weight: 600; color: var(--azul-oscuro);">¿Con qué frecuencia se actualizan los datos?</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    En tiempo real. Cada nuevo reporte aparece inmediatamente en el dashboard y en la lista de incidentes.
+                </p>
+                
+                <p style="font-size: 14px; font-weight: 600; color: var(--azul-oscuro);">¿Mis datos están protegidos?</p>
+                <p style="font-size: 14px; line-height: 1.5; color: #333; margin-bottom: 15px;">
+                    Sí. Usamos HTTPS y una base de datos privada en Hostinger. Los datos solo se comparten entre usuarios de esta app.
+                </p>
+                
+                <div style="background: var(--gris-claro); padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; border-left: 4px solid var(--verde-seguro);">
+                    <p style="font-size: 13px; color: #666; margin: 0;">
+                        <strong>¡Juntos hacemos nuestro barrio más seguro!</strong><br>
+                        Reporte responsable = Comunidad segura
+                    </p>
+                </div>
             </div>
         </div>
         
