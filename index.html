@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e3a5f">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Guardia Digital - Vigilancia Colaborativa del Barrio">
+    <meta property="og:description" content="App comunitaria para registrar, analizar y prevenir robos en tu barrio. Fotos, videos, ubicaciones y patrones de sospechosos.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1557804506-669714531e83?w=1200&h=630&fit=crop">
+    <meta property="og:url" content="https://guardia-digital.vibraspositivashm.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Guardia Digital">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Guardia Digital - Vigilancia Colaborativa">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1557804506-669714531e83?w=1200&h=630&fit=crop">
+    
+    <title>Guardia Digital - Vigilancia Comunitaria</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --azul-oscuro: #1e3a5f;
+            --azul-medio: #2d5a8c;
+            --rojo-alerta: #e74c3c;
+            --naranja-aviso: #f39c12;
+            --verde-seguro: #27ae60;
+            --gris-claro: #f8f9fa;
+            --gris-medio: #ecf0f1;
+            --gris-oscuro: #2c3e50;
+            --texto: #2c3e50;
+            --borde: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gris-claro);
+            color: var(--texto);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Splash Screen */
+        #splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-medio));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: white;
+        }
+
+        #splash.hidden {
+            display: none;
+        }
+
+        .splash-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .splash-text h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .splash-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-align: center;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            margin-top: 2rem;
+            overflow: hidden;
+        }
+
+        .loading-bar::after {
+            content: '';
+            display: block;
+            height: 100%;
+            width: 30%;
+            background: white;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 2px solid var(--borde);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-icon {
+            font-size: 2rem;
+            color: var(--azul-oscuro);
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-title h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+        }
+
+        .header-title p {
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            background: var(--gris-medio);
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .icon-btn:hover {
+            background: var(--azul-oscuro);
+            color: white;
+        }
+
+        /* Navigation Tabs */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--borde);
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            position: sticky;
+            top: 70px;
+            z-index: 99;
+        }
+
+        nav button {
+            flex: 1;
+            min-width: 100px;
+            padding: 1rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--texto);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        nav button.active {
+            border-bottom-color: var(--azul-medio);
+            color: var(--azul-oscuro);
+        }
+
+        nav button:hover:not(.active) {
+            background: var(--gris-claro);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Dashboard Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--borde);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+
+        .stat-card.alert {
+            background: linear-gradient(135deg, rgba(231,76,60,0.1), rgba(243,156,18,0.1));
+            border-color: var(--rojo-alerta);
+        }
+
+        .stat-card.alert .stat-number {
+            color: var(--rojo-alerta);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-sospechoso {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--borde);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .card-sospechoso:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--gris-medio);
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--azul-oscuro);
+        }
+
+        .card-body p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-badge {
+            display: inline-block;
+            background: var(--rojo-alerta);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-badge.multiple {
+            background: var(--naranja-aviso);
+        }
+
+        .card-incidents {
+            font-size: 0.9rem;
+            color: var(--texto);
+            font-weight: 600;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--azul-oscuro);
+            font-size: 0.95rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--texto);
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--azul-medio);
+            box-shadow: 0 0 0 3px rgba(45,90,140,0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 1rem;
+            background: var(--gris-medio);
+            border: 2px dashed var(--borde);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--azul-oscuro);
+        }
+
+        .file-input-label:hover {
+            border-color: var(--azul-medio);
+            background: rgba(45,90,140,0.05);
+        }
+
+        .file-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .preview-item img, .preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--rojo-alerta);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .preview-remove:hover {
+            transform: scale(1.1);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--azul-medio);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--azul-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(29,58,95,0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--gris-medio);
+            color: var(--texto);
+        }
+
+        .btn-secondary:hover {
+            background: var(--borde);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Search & Filter */
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-bar select {
+            min-width: 150px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--borde);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--azul-medio);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--borde);
+            flex: 1;
+        }
+
+        .timeline-content h3 {
+            color: var(--azul-oscuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .meta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content .media {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .timeline-content .media img,
+        .timeline-content .media video {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gris-medio);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--borde);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h2 {
+            color: var(--texto);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--azul-oscuro);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-title h1 {
+                font-size: 1.1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            nav {
+                gap: 0.5rem;
+            }
+
+            nav button {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Alert badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-red {
+            background: rgba(231,76,60,0.2);
+            color: var(--rojo-alerta);
+        }
+
+        .badge-orange {
+            background: rgba(243,156,18,0.2);
+            color: var(--naranja-aviso);
+        }
+
+        .badge-green {
+            background: rgba(39,174,96,0.2);
+            color: var(--verde-seguro);
+        }
+
+        /* Utilidades */
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .text-center { text-align: center; }
+        .text-muted { color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash">
+        <div class="splash-icon">🛡️</div>
+        <div class="splash-text">
+            <h1>Guardia Digital</h1>
+            <p>Vigilancia Colaborativa</p>
+        </div>
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-icon">🛡️</div>
+        <div class="header-title">
+            <h1>Guardia Digital</h1>
+            <p>Seguridad del Barrio</p>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="btnExport" title="Exportar datos">📥</button>
+            <button class="icon-btn" id="btnClear" title="Limpiar datos">🗑️</button>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <button class="tab-btn active" data-tab="dashboard">📊 Dashboard</button>
+        <button class="tab-btn" data-tab="sospechosos">👤 Sospechosos</button>
+        <button class="tab-btn" data-tab="incidentes">📋 Incidentes</button>
+        <button class="tab-btn" data-tab="reportar">📸 Reportar</button>
+        <button class="tab-btn" data-tab="analisis">🔍 Análisis</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Dashboard -->
+        <section id="dashboard" class="section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalIncidentes">0</div>
+                    <div class="stat-label">Incidentes Registrados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSospechosos">0</div>
+                    <div class="stat-label">Sospechosos Identificados</div>
+                </div>
+                <div class="stat-card alert">
+                    <div class="stat-number" id="repetidos">0</div>
+                    <div class="stat-label">⚠️ Reportados Múltiples Veces</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="zonaAlerta">—</div>
+                    <div class="stat-label">Zona Más Crítica</div>
+                </div>
+            </div>
+
+            <h2 style="margin-bottom: 1.5rem;">📈 Resumen Reciente</h2>
+            <div id="dashboardContent"></div>
+        </section>
+
+        <!-- Sospechosos -->
+        <section id="sospechosos" class="section">
+            <div class="search-bar">
+                <input type="text" id="searchSospechosos" placeholder="Buscar por descripción...">
+                <select id="filterZona">
+                    <option value="">Todas las zonas</option>
+                </select>
+            </div>
+            <div id="galerySospechosos" class="gallery"></div>
+        </section>
+
+        <!-- Incidentes -->
+        <section id="incidentes" class="section">
+            <div class="search-bar">
+                <input type="text" id="searchIncidentes" placeholder="Buscar incidentes...">
+                <select id="filterTipo">
+                    <option value="">Todos los tipos</option>
+                    <option value="robo">Robo</option>
+                    <option value="atraco">Atraco</option>
+                    <option value="hurto">Hurto</option>
+                    <option value="sospechoso">Persona sospechosa</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div id="timelineIncidentes" class="timeline"></div>
+        </section>
+
+        <!-- Reportar -->
+        <section id="reportar" class="section">
+            <form id="formReporte">
+                <h2 style="margin-bottom: 1.5rem;">📸 Nuevo Reporte de Incidente</h2>
+
+                <div class="form-group">
+                    <label>Tipo de incidente *</label>
+                    <select id="tipoIncidente" required>
+                        <option value="">Selecciona un tipo</option>
+                        <option value="robo">Robo</option>
+                        <option value="atraco">Atraco</option>
+                        <option value="hurto">Hurto</option>
+                        <option value="sospechoso">Persona sospechosa</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción del incidente *</label>
+                    <textarea id="descripcion" placeholder="Describe qué pasó, quiénes estaban involucrados..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ubicación (calle/sector) *</label>
+                    <input type="text" id="ubicacion" placeholder="Ej: Carrera 5 con Calle 10" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Fecha del incidente *</label>
+                    <input type="date" id="fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Hora aproximada</label>
+                    <input type="time" id="hora">
+                </div>
+
+                <div class="form-group">
+                    <label>Fotos y/o Videos (máx 5 archivos)</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="mediaFiles" multiple accept="image/*,video/*">
+                        <label for="mediaFiles" class="file-input-label">
+                            📁 Selecciona fotos o videos
+                            <br><small>(arrastra aquí o haz clic)</small>
+                        </label>
+                    </div>
+                    <div id="previewFiles" class="file-preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="confirmo" required>
+                        Confirmo que esta información es precisa y veraz
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+            </form>
+        </section>
+
+        <!-- Análisis -->
+        <section id="analisis" class="section">
+            <h2 style="margin-bottom: 1.5rem;">🔍 Análisis de Patrones</h2>
+            <div id="analisisContent"></div>
+        </section>
+    </main>
+
+    <!-- Modal para detalles -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="document.getElementById('modal').classList.remove('active')">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados</p>
+        <p style="margin-top: 0.5rem; opacity: 0.6;">Vigilancia comunitaria colaborativa | Seguridad del barrio</p>
+    </footer>
+
+    <script>
+        // ======================== DATA MANAGEMENT ========================
+        
+        class GardiaDatos {
+            constructor() {
+                this.incidentes = this.cargarIncidentes();
+            }
+
+            cargarIncidentes() {
+                const datos = localStorage.getItem('guardia-incidentes');
+                return datos ? JSON.parse(datos) : [];
+            }
+
+            guardarIncidentes() {
+                localStorage.setItem('guardia-incidentes', JSON.stringify(this.incidentes));
+            }
+
+            agregarIncidente(data) {
+                const incidente = {
+                    id: Date.now(),
+                    ...data,
+                    fechaRegistro: new Date().toISOString()
+                };
+                this.incidentes.unshift(incidente);
+                this.guardarIncidentes();
+                return incidente;
+            }
+
+            obtenerSospechosos() {
+                const sospechosos = new Map();
+                this.incidentes.forEach(inc => {
+                    if (!sospechosos.has(inc.descripcion)) {
+                        sospechosos.set(inc.descripcion, {
+                            descripcion: inc.descripcion,
+                            zona: inc.ubicacion,
+                            foto: inc.media[0] || null,
+                            incidentes: [],
+                            tipos: []
+                        });
+                    }
+                    const sosp = sospechosos.get(inc.descripcion);
+                    sosp.incidentes.push(inc.id);
+                    if (!sosp.tipos.includes(inc.tipo)) sosp.tipos.push(inc.tipo);
+                });
+                return Array.from(sospechosos.values());
+            }
+
+            limpiarTodo() {
+                this.incidentes = [];
+                this.guardarIncidentes();
+            }
+
+            exportarJSON() {
+                return JSON.stringify(this.incidentes, null, 2);
+            }
+        }
+
+        const db = new GardiaDatos();
+
+        // ======================== UI FUNCTIONS ========================
+
+        function actualizarStats() {
+            document.getElementById('totalIncidentes').textContent = db.incidentes.length;
+            
+            const sospechosos = db.obtenerSospechosos();
+            document.getElementById('totalSospechosos').textContent = sospechosos.length;
+
+            const repetidos = sospechosos.filter(s => s.incidentes.length > 1).length;
+            document.getElementById('repetidos').textContent = repetidos;
+
+            if (db.incidentes.length > 0) {
+                const zonas = {};
+                db.incidentes.forEach(inc => {
+                    zonas[inc.ubicacion] = (zonas[inc.ubicacion] || 0) + 1;
+                });
+                const zonaMax = Object.entries(zonas).sort((a, b) => b[1] - a[1])[0];
+                document.getElementById('zonaAlerta').textContent = zonaMax[0].split(' ')[0];
+            }
+        }
+
+        function renderDashboard() {
+            let html = '';
+            if (db.incidentes.length === 0) {
+                html = `<div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h2>Sin reportes aún</h2>
+                    <p>Ve a la sección "Reportar" para agregar el primer incidente</p>
+                </div>`;
+            } else {
+                const recientes = db.incidentes.slice(0, 3);
+                html = `<div class="timeline">`;
+                recientes.forEach(inc => {
+                    const fecha = new Date(inc.fecha).toLocaleDateString('es-CO');
+                    const icono = {'robo': '🏪', 'atraco': '🚨', 'hurto': '👝', 'sospechoso': '👁️', 'otro': '❓'}[inc.tipo];
+                    html += `<div class="timeline-item">
+                        <div class="timeline-marker">${icono}</div>
+                        <div class="timeline-content">
+                            <h3>${inc.descripcion}</h3>
+                            <div class="meta">📍 ${inc.ubicacion} | 📅 ${fecha}</div>
+                            <p>${inc.descripcion}</p>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+            document.getElementById('dashboardContent').innerHTML = html;
+        }
+
+        function renderSospechosos() {
+            const sospechosos = db.obtenerSospechosos();
+            const searchTerm = document.getElementById('searchSospechosos').value.toLowerCase();
+            const filtrados = sospechosos.filter(s => 
+                s.descripcion.toLowerCase().includes(searchTerm)
+            );
+
+            let html = '';
+            if (filtrados.length === 0) {
+                html = `<div class="empty-state">
+                    <div class="empty-state-icon">🔍</div>
+                    <h2>Sin sospechosos</h2>
+                </div>`;
+            } else {
+                html = filtrados.map(sosp => {
+                    const badge = sosp.incidentes.length > 1 ? 
+                        `<span class="card-badge multiple">⚠️ ${sosp.incidentes.length} reportes</span>` :
+                        `<span class="card-badge">${sosp.incidentes.length} reporte</span>`;
+                    
+                    return `<div class="card-sospechoso" onclick="mostrarDetalleSospechoso('${sosp.descripcion}')">
+                        ${sosp.foto ? `<img src="${sosp.foto}" class="card-image" alt="foto">` : `<div class="card-image" style="display: flex; align-items: center; justify-content: center; background: var(--gris-medio); color: #bdc3c7; font-size: 3rem;">📷</div>`}
+                        <div class="card-body">
+                            <h3>${sosp.descripcion.substring(0, 30)}...</h3>
+                            <p>📍 ${sosp.zona}</p>
+                            ${badge}
+                            <div class="card-incidents">${sosp.tipos.join(', ')}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+            document.getElementById('galerySospechosos').innerHTML = html;
+        }
+
+        function renderIncidentes() {
+            const searchTerm = document.getElementById('searchIncidentes').value.toLowerCase();
+            const filterTipo = document.getElementById('filterTipo').value;
+            
+            let filtrados = db.incidentes.filter(inc => 
+                inc.descripcion.toLowerCase().includes(searchTerm) &&
+                (filterTipo === '' || inc.tipo === filterTipo)
+            );
+
+            let html = '';
+            if (filtrados.length === 0) {
+                html = `<div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h2>Sin incidentes</h2>
+                </div>`;
+            } else {
+                html = '<div class="timeline">';
+                filtrados.forEach(inc => {
+                    const fecha = new Date(inc.fecha).toLocaleDateString('es-CO');
+                    const icono = {'robo': '🏪', 'atraco': '🚨', 'hurto': '👝', 'sospechoso': '👁️', 'otro': '❓'}[inc.tipo];
+                    let mediaHtml = '';
+                    if (inc.media && inc.media.length > 0) {
+                        mediaHtml = '<div class="media">' + 
+                            inc.media.map(m => m.tipo === 'video' ? 
+                                `<video style="cursor: pointer;" onclick="abrirMedia('${m.data}', 'video')">` :
+                                `<img style="cursor: pointer;" onclick="abrirMedia('${m.data}', 'image')">`
+                            ).join('') + 
+                            '</div>';
+                    }
+                    html += `<div class="timeline-item">
+                        <div class="timeline-marker">${icono}</div>
+                        <div class="timeline-content">
+                            <h3>${inc.descripcion.substring(0, 50)}</h3>
+                            <div class="meta">📍 ${inc.ubicacion} | 📅 ${fecha} ${inc.hora ? `| ⏰ ${inc.hora}` : ''}</div>
+                            <p>${inc.descripcion}</p>
+                            ${mediaHtml}
+                        </div>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+            document.getElementById('timelineIncidentes').innerHTML = html;
+        }
+
+        function renderAnalisis() {
+            const sospechosos = db.obtenerSospechosos();
+            const repetidos = sospechosos.filter(s => s.incidentes.length > 1);
+
+            let html = '<h3>🎯 Sospechosos Reportados Múltiples Veces</h3>';
+            if (repetidos.length === 0) {
+                html += `<div class="empty-state" style="padding: 2rem;">
+                    <p>No hay sospechosos con múltiples reportes</p>
+                </div>`;
+            } else {
+                html += `<div class="gallery">`;
+                repetidos.forEach(sosp => {
+                    html += `<div class="card-sospechoso">
+                        ${sosp.foto ? `<img src="${sosp.foto}" class="card-image">` : `<div class="card-image" style="display: flex; align-items: center; justify-content: center; background: var(--gris-medio); color: #bdc3c7; font-size: 3rem;">📷</div>`}
+                        <div class="card-body">
+                            <h3>${sosp.descripcion.substring(0, 30)}</h3>
+                            <p>📍 ${sosp.zona}</p>
+                            <span class="badge badge-red">⚠️ ${sosp.incidentes.length} reportes</span>
+                            <p style="margin-top: 0.5rem; font-size: 0.85rem;">Tipos: ${sosp.tipos.join(', ')}</p>
+                        </div>
+                    </div>`;
+                });
+                html += `</div>`;
+            }
+            
+            html += `<h3 style="margin-top: 2rem;">📊 Estadísticas Generales</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">${db.incidentes.length}</div>
+                    <div class="stat-label">Total Incidentes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${sospechosos.length}</div>
+                    <div class="stat-label">Sospechosos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${repetidos.length}</div>
+                    <div class="stat-label">Repetidos</div>
+                </div>
+            </div>`;
+
+            document.getElementById('analisisContent').innerHTML = html;
+        }
+
+        function mostrarDetalleSospechoso(descripcion) {
+            const sospechosos = db.obtenerSospechosos();
+            const sosp = sospechosos.find(s => s.descripcion === descripcion);
+            const incidentes = db.incidentes.filter(inc => inc.descripcion === descripcion);
+
+            let html = `<h2>${sosp.descripcion}</h2>
+            <p style="margin: 1rem 0;">📍 Zona: ${sosp.zona}</p>
+            <p>Tipos de delito: ${sosp.tipos.join(', ')}</p>
+            <p>Reportado ${incidentes.length} veces</p>
+            <h3 style="margin: 1.5rem 0 1rem;">Incidentes Relacionados</h3>`;
+            
+            incidentes.forEach(inc => {
+                const fecha = new Date(inc.fecha).toLocaleDateString('es-CO');
+                html += `<div style="background: var(--gris-claro); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    <p><strong>${inc.tipo.toUpperCase()}</strong> - ${fecha}</p>
+                    <p>${inc.descripcion}</p>
+                </div>`;
+            });
+
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function abrirMedia(data, tipo) {
+            let html = '';
+            if (tipo === 'image') {
+                html = `<img src="${data}" style="max-width: 100%; border-radius: 8px;">`;
+            } else {
+                html = `<video src="${data}" controls style="max-width: 100%; border-radius: 8px;"></video>`;
+            }
+            document.getElementById('modalBody').innerHTML = html;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        // ======================== FORM HANDLING ========================
+
+        document.getElementById('mediaFiles').addEventListener('change', function(e) {
+            const preview = document.getElementById('previewFiles');
+            preview.innerHTML = '';
+            
+            Array.from(e.target.files).slice(0, 5).forEach((file, idx) => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const ext = file.type.split('/')[0];
+                    const tag = ext === 'image' ? 'img' : 'video';
+                    const item = document.createElement('div');
+                    item.className = 'preview-item';
+                    item.innerHTML = `<${tag} src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;"></${tag}>
+                        <button type="button" class="preview-remove" onclick="this.parentElement.remove()">✕</button>`;
+                    preview.appendChild(item);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        document.getElementById('formReporte').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const media = [];
+            const previewItems = document.querySelectorAll('.preview-item');
+            
+            for (let item of previewItems) {
+                const img = item.querySelector('img');
+                const video = item.querySelector('video');
+                const el = img || video;
+                if (el && el.src) {
+                    media.push({
+                        data: el.src,
+                        tipo: img ? 'image' : 'video'
+                    });
+                }
+            }
+
+            const incidente = db.agregarIncidente({
+                tipo: document.getElementById('tipoIncidente').value,
+                descripcion: document.getElementById('descripcion').value,
+                ubicacion: document.getElementById('ubicacion').value,
+                fecha: document.getElementById('fecha').value,
+                hora: document.getElementById('hora').value,
+                media: media
+            });
+
+            alert('✅ Reporte guardado localmente');
+            document.getElementById('formReporte').reset();
+            document.getElementById('previewFiles').innerHTML = '';
+            
+            actualizarStats();
+            cambiarTab('incidentes');
+        });
+
+        // ======================== SEARCH & FILTER ========================
+
+        document.getElementById('searchSospechosos').addEventListener('input', renderSospechosos);
+        document.getElementById('filterZona').addEventListener('change', renderSospechosos);
+        document.getElementById('searchIncidentes').addEventListener('input', renderIncidentes);
+        document.getElementById('filterTipo').addEventListener('change', renderIncidentes);
+
+        // ======================== TAB NAVIGATION ========================
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                cambiarTab(this.dataset.tab);
+            });
+        });
+
+        function cambiarTab(tabName) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            if (tabName === 'sospechosos') renderSospechosos();
+            if (tabName === 'incidentes') renderIncidentes();
+            if (tabName === 'analisis') renderAnalisis();
+            if (tabName === 'dashboard') renderDashboard();
+        }
+
+        // ======================== EXPORTS & ACTIONS ========================
+
+        document.getElementById('btnExport').addEventListener('click', function() {
+            const json = db.exportarJSON();
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `guardia-backup-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            alert('✅ Datos exportados');
+        });
+
+        document.getElementById('btnClear').addEventListener('click', function() {
+            if (confirm('⚠️ ¿Estás seguro? Esto eliminará todos los datos almacenados.')) {
+                if (confirm('Confirma nuevamente')) {
+                    db.limpiarTodo();
+                    actualizarStats();
+                    renderDashboard();
+                    alert('✅ Datos eliminados');
+                }
+            }
+        });
+
+        // ======================== INIT ========================
+
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('splash').classList.add('hidden');
+                actualizarStats();
+                renderDashboard();
+                
+                // Set today's date as default
+                document.getElementById('fecha').valueAsDate = new Date();
+            }, 1500);
+        });
+
+        // Drag & drop para archivos
+        const mediaInput = document.getElementById('mediaFiles');
+        const label = document.querySelector('.file-input-label');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            label.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            label.addEventListener(eventName, () => {
+                label.style.borderColor = 'var(--azul-medio)';
+                label.style.background = 'rgba(45,90,140,0.05)';
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            label.addEventListener(eventName, () => {
+                label.style.borderColor = 'var(--borde)';
+                label.style.background = 'var(--gris-medio)';
+            });
+        });
+
+        label.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            mediaInput.files = files;
+            mediaInput.dispatchEvent(new Event('change'));
+        });
+    </script>
+</head>
+</html>
