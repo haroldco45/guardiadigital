@@ -4,8 +4,8 @@
 
 exports.handler = async (event) => {
     try {
-        // Configuración de la API local
-        const API_LOCAL = 'http://192.168.1.12:3001/api/guardia';
+        // Configuración de la API local - TAILSCALE FUNNEL
+        const API_LOCAL = 'https://desktop-9vhqq3p.tailscale.net/api/guardia';
         
         // Obtener acción y parámetros
         const { action, ...params } = event.queryStringParameters || {};
