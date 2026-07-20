@@ -1,0 +1,31 @@
+# netlify.toml
+# Configuración de Netlify para Guardia Digital
+
+[build]
+  command = "echo 'Build completado'"
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/guardia/*"
+  to = "/.netlify/functions/guardia-proxy?action=:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/index.html"
+  status = 200
+
+# Configurar headers de seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Access-Control-Allow-Origin = "*"
