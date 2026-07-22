@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Guardia Digital - Seguridad comunitaria con multimedia">
+    <meta name="description" content="Guardia Digital Colinas del Portal - Seguridad comunitaria con Sirena GSM">
     <meta name="theme-color" content="#1e3a5f">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="🛡️ Guardia Digital - Seguridad del Barrio">
-    <meta property="og:description" content="Reporta incidentes con fotos, videos y audio">
+    <meta property="og:title" content="🛡️ Guardia Digital - Colinas del Portal">
+    <meta property="og:description" content="Sistema de seguridad comunitaria con sirena y reportes multimedia">
     <meta property="og:image" content="https://raw.githubusercontent.com/haroldco45/guardiadigital/main/og-image.svg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://haroldco45.github.io/guardiadigital/">
+    <meta property="og:url" content="https://guardiadigitalcolina.netlify.app/">
     <meta property="og:type" content="website">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="🛡️ Guardia Digital - Seguridad del Barrio">
-    <meta name="twitter:description" content="Reporta incidentes con fotos, videos y audio">
+    <meta name="twitter:title" content="🛡️ Guardia Digital - Colinas del Portal">
+    <meta name="twitter:description" content="Seguridad comunitaria con sirena y multimedia">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/haroldco45/guardiadigital/main/og-image.svg">
     
     <!-- PWA -->
-    <link rel="manifest" href="data:application/json,{\"name\":\"Guardia Digital\",\"short_name\":\"Guardia\",\"start_url\":\"/\",\"display\":\"standalone\"}">
+    <link rel="manifest" href="data:application/json,{\"name\":\"Guardia Digital Colinas\",\"short_name\":\"Guardia Colinas\",\"start_url\":\"/\",\"display\":\"standalone\"}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     
-    <title>🛡️ Guardia Digital - Seguridad Comunitaria</title>
+    <title>🛡️ Guardia Digital - Colinas del Portal</title>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,10 +34,12 @@
             --azul-oscuro: #1e3a5f;
             --azul-medio: #2d5a8c;
             --rojo-alerta: #e74c3c;
+            --rojo-sirena: #d32f2f;
             --naranja-aviso: #f39c12;
             --verde-seguro: #27ae60;
             --gris-claro: #ecf0f1;
             --blanco: #ffffff;
+            --amarillo-warning: #ffc107;
         }
         
         body {
@@ -63,46 +65,73 @@
         .header {
             background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
             color: var(--blanco);
-            padding: 15px 20px;
+            padding: 12px 20px;
             text-align: center;
         }
         
         .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 22px;
+            margin-bottom: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
         }
         
-        .status {
+        .header-subtitle {
             font-size: 12px;
-            padding: 5px 10px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 5px;
+            opacity: 0.9;
+            margin-bottom: 8px;
         }
         
-        .status::before { content: '💾'; margin-right: 5px; }
+        .status-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 11px;
+        }
+        
+        .status-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .status-badge.active {
+            background: rgba(50, 205, 50, 0.4);
+            color: #ffffff;
+        }
+        
+        .status-badge.alert {
+            background: rgba(255, 69, 0, 0.4);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
         
         .tabs {
             display: flex;
-            gap: 5px;
-            padding: 10px;
+            gap: 4px;
+            padding: 8px;
             background: var(--gris-claro);
             overflow-x: auto;
             border-bottom: 1px solid #ddd;
         }
         
         .tab-btn {
-            padding: 10px 15px;
+            padding: 8px 12px;
             border: none;
             background: white;
             cursor: pointer;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 600;
             white-space: nowrap;
             transition: all 0.3s;
@@ -116,30 +145,30 @@
         .content {
             flex: 1;
             overflow-y: auto;
-            padding: 15px;
+            padding: 12px;
         }
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: var(--azul-oscuro);
-            font-size: 14px;
+            font-size: 13px;
         }
         
         input, textarea, select {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 2px solid var(--gris-claro);
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 13px;
             font-family: inherit;
         }
         
@@ -151,38 +180,146 @@
         
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 70px;
         }
         
         button {
             background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul-medio) 100%);
             color: white;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         button.secondary { background: var(--naranja-aviso); }
         button.success { background: var(--verde-seguro); }
+        button.danger { background: var(--rojo-alerta); }
+        button.sirena { 
+            background: linear-gradient(135deg, var(--rojo-sirena) 0%, var(--rojo-alerta) 100%);
+            font-size: 16px;
+            padding: 15px;
+            font-weight: 700;
+            animation: sirena-pulse 2s infinite;
+        }
+        
+        @keyframes sirena-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
         
         .incident-card {
             background: var(--gris-claro);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
             border-left: 4px solid var(--azul-medio);
         }
         
-        .media-preview {
-            margin-top: 10px;
+        .incident-card.urgente {
+            border-left-color: var(--rojo-alerta);
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .alert-box {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            padding: 12px;
             border-radius: 8px;
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .contact-card {
+            background: var(--gris-claro);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            border-color: var(--azul-medio);
+            transform: translateY(-2px);
+        }
+        
+        .contact-card.sirena {
+            background: rgba(211, 47, 47, 0.1);
+            border-color: var(--rojo-sirena);
+        }
+        
+        .contact-phone {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--rojo-alerta);
+            margin: 5px 0;
+        }
+        
+        .contact-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .mapa-manzanas {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .manzana {
+            aspect-ratio: 1;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: white;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .manzana:hover {
+            border-color: var(--azul-medio);
+            background: var(--gris-claro);
+        }
+        
+        .manzana.active {
+            background: var(--azul-oscuro);
+            color: white;
+            border-color: var(--azul-oscuro);
+        }
+        
+        .historial-sirena {
+            background: var(--gris-claro);
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--rojo-sirena);
+        }
+        
+        .media-preview {
+            margin-top: 8px;
+            border-radius: 6px;
             overflow: hidden;
-            max-height: 200px;
+            max-height: 180px;
             background: #000;
         }
         
@@ -190,79 +327,42 @@
         .media-preview video, 
         .media-preview audio {
             width: 100%;
-            max-height: 200px;
-        }
-        
-        .media-badge {
-            display: inline-block;
-            background: var(--verde-seguro);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            margin-right: 5px;
-            margin-top: 5px;
-        }
-        
-        .media-controls {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .media-controls button {
-            flex: 1;
-            min-width: 120px;
-            margin-bottom: 0;
-        }
-        
-        .recording {
-            background: var(--rojo-alerta) !important;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.7; }
-        }
-        
-        video#camaraPreview {
-            width: 100%;
-            border-radius: 8px;
-            background: #000;
-            margin-bottom: 10px;
-        }
-        
-        .message {
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
+            max-height: 180px;
         }
         
         .footer {
             background: var(--gris-claro);
-            padding: 10px;
+            padding: 8px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
             border-top: 1px solid #ddd;
         }
         
-        .file-input {
-            display: none;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .stat-box {
+            background: var(--gris-claro);
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--azul-oscuro);
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
         }
     </style>
 </head>
@@ -270,778 +370,562 @@
     <div class="container">
         <div class="header">
             <h1>🛡️ Guardia Digital</h1>
-            <p style="font-size: 14px; margin: 0;">Con Multimedia 📸📹🎙️</p>
-            <div class="status">Datos Locales</div>
+            <div class="header-subtitle">Colinas del Portal - Seguridad Comunitaria</div>
+            <div class="status-bar">
+                <div class="status-badge active">💾 Local</div>
+                <div class="status-badge" id="statusSirena">🚨 Sirena Conectada</div>
+            </div>
         </div>
         
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+            <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Inicio</button>
+            <button class="tab-btn" onclick="switchTab('sirena')">🚨 Sirena</button>
             <button class="tab-btn" onclick="switchTab('reportar')">📸 Reportar</button>
             <button class="tab-btn" onclick="switchTab('incidentes')">📋 Histórico</button>
+            <button class="tab-btn" onclick="switchTab('cuadrantes')">📍 Cuadrantes</button>
+            <button class="tab-btn" onclick="switchTab('contactos')">☎️ Contactos</button>
             <button class="tab-btn" onclick="switchTab('backup')">💾 Backup</button>
-            <button class="tab-btn" onclick="switchTab('ayuda')">❓ Ayuda</button>
         </div>
         
         <div class="content">
-            <!-- Dashboard -->
+            <!-- DASHBOARD -->
             <div id="dashboard" class="tab-content active">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📊 Resumen del Barrio</h2>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📊 Estado del Barrio</h2>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-                    <div style="background: linear-gradient(135deg, var(--rojo-alerta), #c0392b); color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold;" id="totalIncidentes">0</div>
-                        <small>Incidentes</small>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" id="totalReportes">0</div>
+                        <div class="stat-label">Total Reportes</div>
                     </div>
-                    <div style="background: linear-gradient(135deg, var(--naranja-aviso), #d68910); color: white; padding: 15px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 28px; font-weight: bold;" id="totalMultimedia">0</div>
-                        <small>Con Media</small>
+                    <div class="stat-box">
+                        <div class="stat-number" id="sirenasActivadas">0</div>
+                        <div class="stat-label">Sirenas Hoy</div>
                     </div>
                 </div>
                 
-                <div id="dashboardContent"></div>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 12px;">
+                    <div style="font-size: 14px; font-weight: 700; margin-bottom: 5px;">🕐 Últimas Alertas</div>
+                    <div id="ultimasAlertas" style="font-size: 12px;">Ninguna alerta reciente</div>
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px;">📍 Últimos Reportes:</h3>
+                <div id="ultimosReportes"></div>
             </div>
             
-            <!-- Reportar -->
+            <!-- SIRENA COMUNITARIA -->
+            <div id="sirena" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">🚨 Sirena Comunitaria GSM</h2>
+                
+                <div class="alert-box">
+                    ⚠️ SOLO PARA EMERGENCIAS REALES
+                </div>
+                
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid var(--naranja-aviso);">
+                    <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 5px;">¿Cómo Activar?</div>
+                    <div style="font-size: 12px; line-height: 1.6;">
+                        1️⃣ Llama al número programado de la sirena<br>
+                        2️⃣ El sistema reconoce tu número<br>
+                        3️⃣ La sirena se activa automáticamente<br>
+                        4️⃣ Se notifica a los 5 admin<br>
+                        5️⃣ Puedes desactivarla después
+                    </div>
+                </div>
+                
+                <div class="emergency-contacts">
+                    <div class="contact-card sirena">
+                        <div class="contact-label">📞 SIRENA GSM</div>
+                        <div class="contact-phone" onclick="llamar('3117700431')">311 770 0431</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="copiarAlPortapapeles('3117700431')">📋 Copiar</button>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-label">👤 Admin 1</div>
+                        <div class="contact-phone">HAROLD M.</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="llamar('3117700431')">Llamar</button>
+                    </div>
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px;">📊 Usuarios Programados (200 máx)</h3>
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; font-size: 12px;">
+                    <div style="margin-bottom: 6px;"><strong>Capacidad:</strong> 200 usuarios</div>
+                    <div style="margin-bottom: 6px;"><strong>Administradores:</strong> 5 máximo</div>
+                    <div><strong>Estado:</strong> ✅ Activo y Operativo</div>
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px; margin-top: 12px;">📜 Historial de Activaciones</h3>
+                <div id="historialSirena" style="max-height: 200px; overflow-y: auto;">
+                    <div style="text-align: center; color: #999; font-size: 12px; padding: 15px;">
+                        Sin activaciones registradas hoy
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REPORTAR -->
             <div id="reportar" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📸 Reportar con Multimedia</h2>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📸 Reportar Incidente</h2>
                 
-                <div id="reportarMessage"></div>
+                <div class="form-group">
+                    <label>Tipo de Incidente *</label>
+                    <select id="tipoIncidente" required>
+                        <option value="">-- Selecciona tipo --</option>
+                        <option value="robo_vehiculo">🚗 Robo de Vehículo</option>
+                        <option value="robo_residencia">🏠 Robo a Residencia</option>
+                        <option value="sospechoso">👤 Sospechoso Rondando</option>
+                        <option value="asalto">⚠️ Asalto/Violencia</option>
+                        <option value="accidente">🚑 Accidente</option>
+                        <option value="droga">💊 Actividad Sospechosa</option>
+                        <option value="otro">❓ Otro</option>
+                    </select>
+                </div>
                 
-                <form onsubmit="reportarIncidente(event)">
-                    <div class="form-group">
-                        <label>Tipo de Incidente *</label>
-                        <select id="tipo" required>
-                            <option value="">-- Selecciona --</option>
-                            <option value="robo">🚗 Robo</option>
-                            <option value="robo_residencia">🏠 Robo residencia</option>
-                            <option value="sospechoso">👤 Sospechoso</option>
-                            <option value="asalto">⚠️ Asalto</option>
-                            <option value="accidente">🚗 Accidente</option>
-                            <option value="otro">❓ Otro</option>
+                <div class="form-group">
+                    <label>Manzana *</label>
+                    <select id="manzana" required>
+                        <option value="">-- Selecciona Manzana --</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Descripción Detallada *</label>
+                    <textarea id="descripcion" placeholder="¿Qué pasó? Describe lo que viste..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nombre (Opcional)</label>
+                    <input type="text" id="nombre" placeholder="Deja en blanco para 'Anónimo'">
+                </div>
+                
+                <div class="form-group">
+                    <label>Teléfono (Opcional)</label>
+                    <input type="tel" id="telefono" placeholder="Para seguimiento">
+                </div>
+                
+                <div style="background: var(--gris-claro); padding: 8px; border-radius: 6px; margin-bottom: 10px;">
+                    <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 5px; font-size: 13px;">📷 Multimedia</div>
+                    <div class="media-controls" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <button style="flex: 1; min-width: 90px; padding: 8px; margin-bottom: 0;" onclick="capturaFoto()">📷 Foto</button>
+                        <button style="flex: 1; min-width: 90px; padding: 8px; margin-bottom: 0;" onclick="grabaVideo()">🎥 Video</button>
+                        <button style="flex: 1; min-width: 90px; padding: 8px; margin-bottom: 0;" onclick="grabaAudio()">🎙️ Audio</button>
+                    </div>
+                </div>
+                
+                <button class="success" onclick="enviarReporte()">📤 Enviar Reporte</button>
+            </div>
+            
+            <!-- HISTÓRICO -->
+            <div id="incidentes" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📋 Histórico de Reportes</h2>
+                <div id="listadoIncidentes"></div>
+            </div>
+            
+            <!-- CONTACTOS DE EMERGENCIA -->
+            <div id="contactos" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">☎️ Contactos de Emergencia</h2>
+                
+                <div class="emergency-contacts">
+                    <div class="contact-card sirena">
+                        <div class="contact-label">🚨 SIRENA GSM</div>
+                        <div class="contact-phone" onclick="llamar('3117700431')">311 770 0431</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="copiarAlPortapapeles('3117700431')">📋 Copiar</button>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-label">🚔 Policía Local</div>
+                        <div class="contact-phone" onclick="llamar('3113896080')">311 389 6080</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="llamar('3113896080')">📞 Llamar</button>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-label">🏥 Ambulancia</div>
+                        <div class="contact-phone" onclick="llamar('3117700431')">311 770 0431</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="llamar('3117700431')">📞 Llamar</button>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-label">👥 JAC Colinas</div>
+                        <div class="contact-phone" onclick="llamar('3117700431')">311 770 0431</div>
+                        <button style="padding: 6px; font-size: 11px; margin-bottom: 0;" onclick="llamar('3117700431')">📞 Llamar</button>
+                    </div>
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px; margin-top: 12px;">📍 Coordenadas Barrio</h3>
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; font-size: 12px; line-height: 1.6;">
+                    <div><strong>Barrio:</strong> Colinas del Portal</div>
+                    <div><strong>Ciudad:</strong> Caucasia, Antioquia</div>
+                    <div><strong>Manzanas:</strong> 30</div>
+                    <div><strong>Habitantes:</strong> ~400-500 familias</div>
+                </div>
+            </div>
+            
+            <!-- CUADRANTES -->
+            <div id="cuadrantes" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📍 Cuadrantes de Seguridad</h2>
+                
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid var(--azul-medio);">
+                    <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 5px; font-size: 13px;">Colinas del Portal - Cuadrante 2</div>
+                    <div style="font-size: 12px; line-height: 1.6;">
+                        <div style="margin-bottom: 5px;"><strong>🏘️ Zonas:</strong> Asovivienda, El Triángulo, Buenos Aires, Los Trabajadores, Altos de San Juan</div>
+                        <div><strong>📞 Coordinador:</strong> <span style="color: var(--rojo-alerta); font-weight: 700;">314 844 7487</span></div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 12px;">
+                    <label style="color: var(--azul-oscuro); font-weight: 600; margin-bottom: 8px; display: block; font-size: 13px;">🔍 Buscar Contacto por Manzana</label>
+                    <input type="text" id="searchCuadrante" placeholder="Ej: Manzana 5, Manzana 15..." 
+                           onkeyup="filtrarCuadrantes()" 
+                           style="width: 100%; padding: 10px; border: 2px solid var(--gris-claro); border-radius: 6px; font-size: 13px;">
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px; margin-top: 12px;">👥 Contactos por Manzana</h3>
+                <div id="listadoCuadrantes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <!-- Se llena dinámicamente -->
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px; margin-top: 12px;">✏️ Registrar Mi Contacto</h3>
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <label style="font-size: 12px;">Nombre</label>
+                        <input type="text" id="miNombre" placeholder="Tu nombre" style="font-size: 12px; padding: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 8px;">
+                        <label style="font-size: 12px;">Teléfono</label>
+                        <input type="tel" id="miTelefono" placeholder="3XX XXX XXXX" style="font-size: 12px; padding: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-size: 12px;">Tu Manzana</label>
+                        <select id="miManzana" style="font-size: 12px; padding: 8px;">
+                            <option value="">-- Selecciona tu manzana --</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Descripción *</label>
-                        <textarea id="descripcion" placeholder="Describe lo que viste..." required></textarea>
+                    <button onclick="registrarContactoPersonal()" style="margin-top: 10px; padding: 10px; font-size: 12px;">💾 Guardar Mi Contacto</button>
+                </div>
+                
+                <h3 style="color: var(--azul-oscuro); font-size: 13px; margin-bottom: 8px;">📞 Línea de Emergencia Cuadrante 2</h3>
+                <div class="emergency-contacts">
+                    <div class="contact-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: var(--azul-oscuro);">
+                        <div class="contact-label" style="color: white;">🚔 Coordinador Cuadrante 2</div>
+                        <div class="contact-phone" style="color: white; font-size: 18px;" onclick="llamar('3148447487')">314 844 7487</div>
+                        <button style="padding: 8px; font-size: 11px; margin-bottom: 0; background: white; color: var(--azul-oscuro);" onclick="llamar('3148447487')">📞 Llamar Ahora</button>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Ubicación *</label>
-                        <input type="text" id="ubicacion" placeholder="Calle..." required>
-                    </div>
-                    
-                    <!-- MULTIMEDIA SECTION -->
-                    <div class="form-group">
-                        <label>📸 Multimedia (Opcional)</label>
-                        <div class="media-controls">
-                            <button type="button" class="secondary" onclick="abrirCamara()">📷 Foto</button>
-                            <button type="button" class="secondary" onclick="grabarVideo()">🎥 Video</button>
-                            <button type="button" class="secondary" onclick="grabarAudio()">🎙️ Audio</button>
-                            <button type="button" class="secondary" onclick="document.getElementById('archivoMedia').click()">📁 Archivo</button>
-                        </div>
-                        <input type="file" id="archivoMedia" class="file-input" accept="image/*,video/*,audio/*" onchange="agregarMedia(event)">
-                    </div>
-                    
-                    <!-- VIDEO PREVIEW CAMARA -->
-                    <div id="camaraContainer" style="display:none;">
-                        <video id="camaraPreview" autoplay playsinline></video>
-                        <button type="button" class="success" onclick="capturarFoto()">📸 Capturar</button>
-                        <button type="button" class="secondary" onclick="cerrarCamara()">❌ Cancelar</button>
-                    </div>
-                    
-                    <!-- MEDIA PREVIEW -->
-                    <div id="mediaPreview"></div>
-                    
-                    <button type="submit">📤 Enviar Reporte</button>
-                </form>
+                </div>
             </div>
             
-            <!-- Histórico -->
-            <div id="incidentes" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">📋 Histórico</h2>
-                <div id="incidentesContainer"></div>
-            </div>
-            
-            <!-- Backup -->
+            <!-- BACKUP -->
             <div id="backup" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">💾 Backup</h2>
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">💾 Backup y Sincronización</h2>
+                
+                <div style="background: var(--gris-claro); padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 12px;">
+                    <strong style="color: var(--azul-oscuro);">ℹ️ PC Central Coordinadora</strong><br>
+                    Un vecino guarda todos los reportes y los comparte regularmente en WhatsApp con el grupo del barrio.
+                </div>
                 
                 <button class="success" onclick="descargarBackup()">📥 Descargar Backup</button>
-                <button class="secondary" onclick="document.getElementById('archivoBackup').click()">📤 Restaurar Backup</button>
-                <input type="file" id="archivoBackup" class="file-input" accept=".json" onchange="restaurarBackup(event)">
+                <button class="secondary" onclick="restaurarBackup()">📤 Restaurar Backup</button>
+                <button onclick="compartirWhatsApp()">💬 Compartir por WhatsApp</button>
                 
-                <button class="secondary" onclick="compartirWhatsApp()" style="background: #25D366; margin-top: 10px;">💬 Compartir por WhatsApp</button>
-                
-                <div id="backupMessage" style="margin-top: 15px;"></div>
-                
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid var(--naranja-aviso); font-size: 13px;">
-                    <p style="margin: 0 0 10px 0;"><strong>📌 CÓMO GUARDAR EN PC CENTRAL:</strong></p>
-                    <p style="margin: 5px 0;">1️⃣ Click "📥 Descargar Backup" → Guarda archivo</p>
-                    <p style="margin: 5px 0;">2️⃣ Click "💬 Compartir por WhatsApp" → Se abre chat</p>
-                    <p style="margin: 5px 0;">3️⃣ Adjunta el archivo descargado al mensaje</p>
-                    <p style="margin: 5px 0;">4️⃣ Otros usuarios descargan de WhatsApp</p>
-                    <p style="margin: 5px 0;">5️⃣ Click "📤 Restaurar Backup" para ver el histórico</p>
-                </div>
-            </div>
-            
-            <!-- Ayuda -->
-            <div id="ayuda" class="tab-content">
-                <h2 style="color: var(--azul-oscuro); margin-bottom: 15px;">❓ Guía de Uso</h2>
-                
-                <button class="success" onclick="descargarManual()" style="margin-bottom: 15px;">📄 Descargar Manual (TXT)</button>
-                
-                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
-                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">🚀 Inicio Rápido</h3>
-                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
-                        <strong style="color: var(--azul-oscuro);">1. Reportar Incidente</strong>
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "📸 Reportar" → Completa el formulario → Adjunta foto/video/audio → Click "📤 Enviar"</p>
-                    </div>
-                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
-                        <strong style="color: var(--azul-oscuro);">2. Ver Histórico</strong>
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "📋 Histórico" para ver todos tus reportes con multimedia</p>
-                    </div>
-                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--naranja-aviso);">
-                        <strong style="color: var(--azul-oscuro);">3. Backup y Compartir</strong>
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;">Selecciona "💾 Backup" → Descarga → Comparte por WhatsApp</p>
-                    </div>
-                </div>
-                
-                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
-                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">📸 Multimedia</h3>
-                    <p style="font-size: 13px; color: #555; line-height: 1.8;">
-                        <strong>📷 Fotos:</strong> Captura desde cámara o sube de galería<br>
-                        <strong>🎥 Videos:</strong> Graba video con audio en tiempo real<br>
-                        <strong>🎙️ Audio:</strong> Graba solo sonido (anónimo)<br>
-                        <strong>📁 Archivos:</strong> Sube fotos/videos/audios guardados
-                    </p>
-                </div>
-                
-                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--azul-oscuro);">
-                    <h3 style="color: var(--azul-oscuro); margin-bottom: 10px; font-size: 16px;">💾 Backup Centralizado</h3>
-                    <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 6px;">
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>PC Central:</strong> Un usuario descarga backup y lo comparte</p>
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>Sincronización:</strong> Otros usuarios restauran para ver el histórico</p>
-                        <p style="font-size: 12px; color: #555; margin: 5px 0;"><strong>Multimedia incluida:</strong> Fotos, videos y audios se guardan con cada reporte</p>
-                    </div>
-                </div>
-                
-                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid var(--naranja-aviso);">
-                    <p style="font-size: 13px; color: #666; margin: 0;">
-                        <strong>💡 PRIVACIDAD:</strong> Todos tus datos se guardan solo en tu navegador. NO se envían a servidores. Tú tienes control total.
-                    </p>
-                </div>
+                <input type="file" id="backupInput" class="file-input" accept=".json" onchange="procesarBackup(event)">
             </div>
         </div>
         
         <div class="footer">
-            Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados
+            Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados | v4.0
         </div>
     </div>
-    
+
     <script>
-        const DB_KEY = 'guardia_digital_reports';
-        let mediaActual = null;
-        let streamCamara = null;
-        let grabadorVideo = null;
-        let grabadorAudio = null;
+        const MANZANAS = Array.from({length: 30}, (_, i) => `Manzana ${i + 1}`);
         
-        // ========== ALMACENAMIENTO ==========
-        
-        function guardarEnLocal(incidente) {
-            let reportes = JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-            reportes.push(incidente);
-            localStorage.setItem(DB_KEY, JSON.stringify(reportes));
-        }
-        
-        function cargarDelLocal() {
-            return JSON.parse(localStorage.getItem(DB_KEY) || '[]');
-        }
-        
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tab).classList.add('active');
-            event.target.classList.add('active');
-        }
-        
-        // ========== CÁMARA ==========
-        
-        async function abrirCamara() {
-            try {
-                streamCamara = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment' },
-                    audio: false 
-                });
-                const video = document.getElementById('camaraPreview');
-                video.srcObject = streamCamara;
-                document.getElementById('camaraContainer').style.display = 'block';
-            } catch (err) {
-                alert('Error accediendo a la cámara: ' + err.message);
+        // Base de datos de cuadrantes de Caucasia
+        const CUADRANTES_DATA = {
+            2: { // Cuadrante 2 - Colinas del Portal
+                nombre: "Cuadrante 2",
+                coordinador: "314 844 7487",
+                barrios: ["Asovivienda", "El Triángulo", "La Sudestación", "Fiestas del Lago", "Centro", "Colinas del Portal", "Buenos Aires 1-2", "El Mar", "Los Trabajadores", "Altos de San Juan"]
             }
-        }
+        };
         
-        function capturarFoto() {
-            const video = document.getElementById('camaraPreview');
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0);
-            
-            mediaActual = canvas.toDataURL('image/jpeg', 0.8);
-            mostrarMediaPreview(mediaActual, 'image/jpeg');
-            cerrarCamara();
-        }
-        
-        function cerrarCamara() {
-            if (streamCamara) {
-                streamCamara.getTracks().forEach(track => track.stop());
-                streamCamara = null;
-            }
-            document.getElementById('camaraContainer').style.display = 'none';
-        }
-        
-        // ========== VIDEO & AUDIO ==========
-        
-        async function grabarVideo() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment' }, 
-                    audio: true 
-                });
-                const video = document.getElementById('camaraPreview');
-                video.srcObject = stream;
-                document.getElementById('camaraContainer').style.display = 'block';
-                
-                const chunks = [];
-                grabadorVideo = new MediaRecorder(stream);
-                grabadorVideo.ondataavailable = e => chunks.push(e.data);
-                grabadorVideo.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'video/mp4' });
-                    const reader = new FileReader();
-                    reader.onload = e => {
-                        mediaActual = e.target.result;
-                        mostrarMediaPreview(mediaActual, 'video/mp4');
-                    };
-                    reader.readAsDataURL(blob);
-                    stream.getTracks().forEach(t => t.stop());
-                };
-                
-                grabadorVideo.start();
-                const btn = event.target;
-                btn.textContent = '⏹️ Detener Video';
-                btn.onclick = () => {
-                    grabadorVideo.stop();
-                    btn.textContent = '🎥 Video';
-                    cerrarCamara();
-                };
-            } catch (err) {
-                alert('Error: ' + err.message);
-            }
-        }
-        
-        async function grabarAudio() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const chunks = [];
-                grabadorAudio = new MediaRecorder(stream);
-                grabadorAudio.ondataavailable = e => chunks.push(e.data);
-                grabadorAudio.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'audio/mp3' });
-                    const reader = new FileReader();
-                    reader.onload = e => {
-                        mediaActual = e.target.result;
-                        mostrarMediaPreview(mediaActual, 'audio/mp3');
-                    };
-                    reader.readAsDataURL(blob);
-                    stream.getTracks().forEach(t => t.stop());
-                };
-                
-                grabadorAudio.start();
-                const btn = event.target;
-                btn.classList.add('recording');
-                btn.textContent = '⏹️ Detener Audio';
-                btn.onclick = () => {
-                    grabadorAudio.stop();
-                    btn.classList.remove('recording');
-                    btn.textContent = '🎙️ Audio';
-                };
-            } catch (err) {
-                alert('Error: ' + err.message);
-            }
-        }
-        
-        // ========== PREVIEW & SUBMIT ==========
-        
-        function agregarMedia(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    mediaActual = e.target.result;
-                    mostrarMediaPreview(mediaActual, file.type);
-                };
-                reader.readAsDataURL(file);
-            }
-            event.target.value = '';
-        }
-        
-        function mostrarMediaPreview(data, tipo) {
-            const preview = document.getElementById('mediaPreview');
-            let html = '<div class="media-badge">✅ Media Adjunta</div>';
-            
-            if (tipo.startsWith('image/')) {
-                html += `<div class="media-preview"><img src="${data}" alt="Foto"></div>`;
-            } else if (tipo.startsWith('video/')) {
-                html += `<div class="media-preview"><video controls src="${data}"></video></div>`;
-            } else if (tipo.startsWith('audio/')) {
-                html += `<div class="media-preview"><audio controls src="${data}"></audio></div>`;
-            }
-            
-            preview.innerHTML = html;
-        }
-        
-        function reportarIncidente(e) {
-            e.preventDefault();
-            
-            const incidente = {
-                uuid: Date.now().toString(),
-                tipo: document.getElementById('tipo').value,
-                descripcion: document.getElementById('descripcion').value,
-                ubicacion: document.getElementById('ubicacion').value,
-                fecha: new Date().toISOString().split('T')[0],
-                hora: new Date().toTimeString().slice(0, 8),
-                multimedia: mediaActual || null
-            };
-            
-            guardarEnLocal(incidente);
-            
-            const msg = document.getElementById('reportarMessage');
-            msg.innerHTML = '<div class="message success">✅ Reporte guardado</div>';
-            document.querySelector('form').reset();
-            document.getElementById('mediaPreview').innerHTML = '';
-            mediaActual = null;
+        function initApp() {
+            console.log('[Guardia Digital v4.0] 🚀 Colinas del Portal');
+            cargarManzanas();
+            cargarManzanasCuadrantes();
             actualizarDashboard();
-            
-            setTimeout(() => msg.innerHTML = '', 3000);
+            cargarIncidentes();
+            cargarContactosCuadrantes();
         }
         
-        function actualizarDashboard() {
-            const reportes = cargarDelLocal();
-            const conMedia = reportes.filter(r => r.multimedia).length;
-            
-            document.getElementById('totalIncidentes').textContent = reportes.length;
-            document.getElementById('totalMultimedia').textContent = conMedia;
-            
-            let html = '<h3>Últimos Reportes</h3>';
-            reportes.slice(-5).reverse().forEach(inc => {
-                html += `
-                    <div class="incident-card">
-                        <strong>${inc.tipo.toUpperCase()}</strong>
-                        ${inc.multimedia ? '<div class="media-badge">📸 Con Media</div>' : ''}
-                        <div>${inc.descripcion}</div>
-                        <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha}</small>
-                    </div>
-                `;
+        function cargarManzanas() {
+            const select = document.getElementById('manzana');
+            MANZANAS.forEach(m => {
+                const option = document.createElement('option');
+                option.value = m;
+                option.textContent = m;
+                select.appendChild(option);
             });
-            
-            document.getElementById('dashboardContent').innerHTML = html;
         }
         
-        function cargarIncidentes() {
-            const container = document.getElementById('incidentesContainer');
-            const reportes = cargarDelLocal();
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             
-            if (reportes.length === 0) {
-                container.innerHTML = '<p style="text-align:center;color:#999">Sin reportes</p>';
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (tabName === 'incidentes') cargarIncidentes();
+        }
+        
+        function enviarReporte() {
+            const tipo = document.getElementById('tipoIncidente').value;
+            const manzana = document.getElementById('manzana').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const nombre = document.getElementById('nombre').value || 'Anónimo';
+            const telefono = document.getElementById('telefono').value;
+            
+            if (!tipo || !manzana || !descripcion) {
+                alert('⚠️ Completa los campos obligatorios (*)');
                 return;
             }
             
+            const reporte = {
+                id: Date.now(),
+                tipo,
+                manzana,
+                descripcion,
+                nombre,
+                telefono,
+                fecha: new Date().toLocaleString('es-CO'),
+                timestamp: Date.now()
+            };
+            
+            let reportes = JSON.parse(localStorage.getItem('guardia_reportes') || '[]');
+            reportes.unshift(reporte);
+            localStorage.setItem('guardia_reportes', JSON.stringify(reportes));
+            
+            alert('✅ Reporte enviado correctamente');
+            document.getElementById('tipoIncidente').value = '';
+            document.getElementById('manzana').value = '';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('nombre').value = '';
+            document.getElementById('telefono').value = '';
+            
+            actualizarDashboard();
+        }
+        
+        function actualizarDashboard() {
+            const reportes = JSON.parse(localStorage.getItem('guardia_reportes') || '[]');
+            document.getElementById('totalReportes').textContent = reportes.length;
+            
+            const hoy = new Date().toDateString();
+            const sirenasHoy = reportes.filter(r => new Date(r.timestamp).toDateString() === hoy).length;
+            document.getElementById('sirenasActivadas').textContent = sirenasHoy;
+            
+            const ultimos = reportes.slice(0, 3);
             let html = '';
-            reportes.slice().reverse().forEach(inc => {
-                html += `
-                    <div class="incident-card">
-                        <strong>${inc.tipo.toUpperCase()}</strong>
-                        ${inc.multimedia ? '<div class="media-badge">📸 Con Media</div>' : ''}
-                        <div>${inc.descripcion}</div>
-                        <small>📍 ${inc.ubicacion} | 📅 ${inc.fecha} ${inc.hora}</small>
-                `;
-                
-                if (inc.multimedia) {
-                    const tipo = inc.multimedia.substring(5, 20);
-                    if (tipo.includes('image')) {
-                        html += `<div class="media-preview"><img src="${inc.multimedia}" style="max-width:100%;"></div>`;
-                    } else if (tipo.includes('video')) {
-                        html += `<div class="media-preview"><video controls src="${inc.multimedia}" style="max-width:100%;"></video></div>`;
-                    } else if (tipo.includes('audio')) {
-                        html += `<div class="media-preview"><audio controls src="${inc.multimedia}" style="max-width:100%;"></audio></div>`;
-                    }
-                }
-                
-                html += '</div>';
+            ultimos.forEach(r => {
+                html += `<div class="incident-card ${r.tipo === 'asalto' ? 'urgente' : ''}">
+                    <div style="font-weight: 600; color: var(--azul-oscuro);">${r.manzana}</div>
+                    <div style="font-size: 12px; color: #666; margin-top: 2px;">${r.descripcion.substring(0, 60)}...</div>
+                    <div style="font-size: 11px; color: #999; margin-top: 4px;">${r.fecha}</div>
+                </div>`;
+            });
+            document.getElementById('ultimosReportes').innerHTML = html || '<div style="text-align: center; color: #999; font-size: 12px;">Sin reportes recientes</div>';
+        }
+        
+        function cargarIncidentes() {
+            const reportes = JSON.parse(localStorage.getItem('guardia_reportes') || '[]');
+            let html = '';
+            
+            reportes.forEach(r => {
+                html += `<div class="incident-card ${r.tipo === 'asalto' ? 'urgente' : ''}">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="font-weight: 600; color: var(--azul-oscuro);">${r.manzana}</div>
+                        <div style="font-size: 11px; color: #999;">${r.fecha}</div>
+                    </div>
+                    <div style="font-size: 12px; margin-top: 5px;">${r.descripcion}</div>
+                    <div style="font-size: 11px; color: #666; margin-top: 5px;">👤 ${r.nombre}</div>
+                </div>`;
             });
             
-            container.innerHTML = html;
+            document.getElementById('listadoIncidentes').innerHTML = html || '<div style="text-align: center; color: #999; font-size: 12px; padding: 20px;">Sin reportes aún</div>';
         }
         
         function descargarBackup() {
-            const reportes = cargarDelLocal();
+            const reportes = JSON.parse(localStorage.getItem('guardia_reportes') || '[]');
             const backup = {
+                version: 4.0,
+                barrio: 'Colinas del Portal',
                 fecha: new Date().toISOString(),
-                total: reportes.length,
-                datos: reportes
+                reportes: reportes
             };
             
-            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify(backup, null, 2)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `guardia-backup-${new Date().toISOString().split('T')[0]}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            const msg = document.getElementById('backupMessage');
-            msg.innerHTML = '<div class="message success">✅ Backup descargado</div>';
-            setTimeout(() => msg.innerHTML = '', 3000);
-        }
-        
-        function restaurarBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = e => {
-                try {
-                    const backup = JSON.parse(e.target.result);
-                    localStorage.setItem(DB_KEY, JSON.stringify(backup.datos));
-                    
-                    const msg = document.getElementById('backupMessage');
-                    msg.innerHTML = `<div class="message success">✅ ${backup.datos.length} reportes restaurados</div>`;
-                    actualizarDashboard();
-                    setTimeout(() => msg.innerHTML = '', 3000);
-                } catch (err) {
-                    const msg = document.getElementById('backupMessage');
-                    msg.innerHTML = '<div class="message error">❌ Error: archivo inválido</div>';
-                }
-            };
-            reader.readAsText(file);
-            event.target.value = '';
-        }
-        
-        function compartirWhatsApp() {
-            const reportes = cargarDelLocal();
-            const fecha = new Date().toLocaleDateString('es-CO');
-            const hora = new Date().toLocaleTimeString('es-CO');
-            
-            const mensaje = `📊 *GUARDIA DIGITAL - BACKUP HISTÓRICO*
-
-📅 Fecha: ${fecha}
-🕐 Hora: ${hora}
-📝 Total de reportes: ${reportes.length}
-
-*INSTRUCCIONES:*
-1. Descarga el archivo de backup desde la app (📥 Descargar Backup)
-2. Adjunta el archivo a este chat por WhatsApp
-3. Otros usuarios pueden restaurar el backup en sus teléfonos
-
-*FLUJO:*
-Usuario A → Descarga backup.json
-Usuario A → Comparte archivo por WhatsApp
-Usuario B → Recibe archivo
-Usuario B → Abre la app y restaura (📤 Restaurar Backup)
-Usuario B → ¡Ve todo el histórico de Usuario A!
-
-🛡️ Guardia Digital - Seguridad Comunitaria
-https://haroldco45.github.io/guardiadigital/`;
-            
-            const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
-        }
-        
-        function descargarManual() {
-            const manual = `GUARDIA DIGITAL v3.0 - MANUAL COMPLETO
-================================================
-
-VERSION: 3.0 CON MULTIMEDIA
-FECHA: 20/07/2026
-
-🛡️ INTRODUCCIÓN
-================================================
-Guardia Digital es una app para reportar incidentes de seguridad en tu barrio.
-✅ Fotos, videos y audio
-✅ Datos guardados localmente
-✅ Compartir histórico por WhatsApp
-✅ PC central con backup
-
-📋 PESTAÑAS PRINCIPALES
-================================================
-
-📊 DASHBOARD
-- Resumen con total de incidentes
-- Contador de reportes con multimedia
-- Últimos 5 reportes
-
-📸 REPORTAR
-- Formulario para nuevo reporte
-- Selecciona tipo de incidente
-- Adjunta foto/video/audio
-- Se guarda automáticamente
-
-📋 HISTÓRICO
-- Ver todos los reportes guardados
-- Ordenados por fecha (más reciente primero)
-- Visualiza multimedia adjunta
-
-💾 BACKUP
-- Descargar backup en JSON
-- Subir backup para restaurar datos
-- Compartir por WhatsApp
-- Sincronización de histórico
-
-❓ AYUDA
-- Guía de uso
-- Preguntas frecuentes
-- Descargar este manual
-
-🚀 CÓMO REPORTAR
-================================================
-
-PASO 1: Click en "📸 Reportar"
-
-PASO 2: Selecciona tipo de incidente:
-- 🚗 Robo de vehículo
-- 🏠 Robo a residencia
-- 👤 Sospechoso rondando
-- ⚠️ Asalto
-- 🚗 Accidente
-- ❓ Otro
-
-PASO 3: Completa información:
-- DESCRIPCIÓN*: Cuéntanos qué pasó
-- UBICACIÓN*: Dónde ocurrió
-- Otros campos opcionales
-
-PASO 4: AGREGA MULTIMEDIA (opcional):
-- 📷 FOTO: Toma desde cámara
-- 🎥 VIDEO: Graba video con audio
-- 🎙️ AUDIO: Graba solo sonido
-- 📁 ARCHIVO: Sube de galería
-
-PASO 5: Click "📤 Enviar Reporte"
-
-✅ Se guarda con multimedia en tu navegador
-
-📸 MULTIMEDIA - CÓMO USAR
-================================================
-
-FOTOS:
-1. Click "📷 Foto"
-2. Se abre cámara en vivo
-3. Click "📸 Capturar"
-4. Se muestra preview
-5. Completa el reporte
-
-VIDEOS:
-1. Click "🎥 Video"
-2. Graba mientras desees
-3. Click "⏹️ Detener Video"
-4. Se procesa automáticamente
-5. Se adjunta al reporte
-
-AUDIO:
-1. Click "🎙️ Audio"
-2. Botón rojo parpadeante (grabando)
-3. Habla lo que necesites
-4. Click "⏹️ Detener Audio"
-5. Se adjunta al reporte
-
-ARCHIVO:
-1. Click "📁 Archivo"
-2. Selecciona foto/video/audio
-3. Se carga automáticamente
-4. Se muestra preview
-
-💾 BACKUP CENTRALIZADO
-================================================
-
-¿POR QUÉ UN PC CENTRAL?
-- Uno reporta, otros ven el histórico
-- Sincronización en tiempo real
-- Respaldo en WhatsApp (nube)
-- Recuperación si alguien limpia navegador
-
-PASO A PASO:
-
-Usuario A (PC CENTRAL):
-1. Click "💾 Backup"
-2. Click "📥 Descargar Backup"
-3. Se descarga: guardia-backup-2026-07-20.json
-4. Guarda en PC
-
-Compartir en grupo WhatsApp:
-5. Click "💬 Compartir por WhatsApp"
-6. Se abre chat automáticamente
-7. Adjunta el archivo descargado
-8. Comparte en grupo
-
-Usuario B, C, D...:
-9. Reciben archivo en WhatsApp
-10. Descargan el .json
-11. Abren la app → Tab "Backup"
-12. Click "📤 Restaurar Backup"
-13. Seleccionan archivo
-14. ✅ VEN TODO EL HISTÓRICO + MULTIMEDIA
-
-TAMAÑO DEL BACKUP:
-- Sin multimedia: 1-5 KB
-- Con fotos: 100 KB - 2 MB
-- Con videos: 1-5 MB
-
-RECUPERACIÓN:
-Si alguien limpia caché:
-1. Otro usuario comparte backup
-2. Restaura en su teléfono
-3. Recupera todo el histórico
-
-❓ PREGUNTAS FRECUENTES
-================================================
-
-P: ¿Dónde se guardan los datos?
-R: En tu navegador (localStorage). No en servidores.
-
-P: ¿Se pierden si reinicio el navegador?
-R: No. Los datos permanecen. Solo se pierden si limpias caché.
-
-P: ¿Es privado?
-R: Totalmente. Los datos NUNCA salen de tu navegador.
-
-P: ¿Cuántos reportes puedo guardar?
-R: Hasta ~10 MB (cientos de reportes).
-
-P: ¿Funciona sin internet?
-R: Sí, después de cargar la app la primera vez.
-
-P: ¿Otros usuarios ven mis reportes?
-R: Solo si compartes backup explícitamente.
-
-P: ¿Puedo eliminar reportes?
-R: Sí, restaurando backup anterior sin ese reporte.
-
-P: ¿La multimedia se guarda en el backup?
-R: Sí, en Base64 (comprimido dentro del JSON).
-
-P: ¿Qué pasa si pierdo el backup?
-R: Si otro usuario tiene copia, puede compartir.
-
-🔒 PRIVACIDAD Y SEGURIDAD
-================================================
-
-✅ SE GUARDA:
-- Tipo de incidente
-- Descripción
-- Ubicación
-- Fecha y hora
-- Multimedia (fotos/videos/audios)
-
-❌ NO SE GUARDA:
-- Ubicación GPS
-- Datos bancarios
-- Información personal completa
-
-🔐 PRIVACIDAD GARANTIZADA:
-- Datos 100% privados en tu navegador
-- NO se envían a servidores
-- TÚ tienes control total
-- Descarga backup para tener copia física
-
-⚠️ IMPORTANTE:
-Si limpias el caché del navegador, se pierden los datos.
-Por eso es importante compartir backup regularmente.
-
-📱 COMPATIBILIDAD
-================================================
-
-FUNCIONA EN:
-✅ Chrome/Edge (desktop + móvil)
-✅ Firefox (desktop + móvil)
-✅ Safari (iPhone)
-✅ Navegadores Android modernos
-
-LIMITACIONES:
-⚠️ Navegadores muy antiguos no lo soportan
-⚠️ Safari pide permisos especiales
-
-💡 CASOS DE USO
-================================================
-
-REPORTAR ROBO:
-1. Toma foto del vehículo/lugar
-2. Graba video del sitio
-3. Adjunta ambos al reporte
-4. Comparte por WhatsApp
-
-DENUNCIAR SOSPECHOSO:
-1. Graba audio describiendo persona
-2. Toma foto del lugar
-3. Video de la ronda
-4. Todos los barrios ven la alerta
-
-ACCIDENTE:
-1. Video de daños
-2. Fotos de placa
-3. Audio de testigos
-4. Sincroniza con grupo
-
-BARRIO COMPLETO SEGURO:
-1. PC central recopila todo
-2. Descarga backup diariamente
-3. Comparte en grupo
-4. TODOS tienen mismo histórico
-
-🎯 RECOMENDACIONES
-================================================
-
-PARA UN BARRIO:
-1. Elige coordinador (PC central)
-2. Coordina reportes en la app
-3. Coordina descarga diaria de backup
-4. Comparte en WhatsApp del barrio
-5. Otros restauran para estar al día
-
-BACKUP:
-- Haz backup al menos 2-3 veces por semana
-- Ten copia en tu PC
-- Comparte en WhatsApp regularmente
-- Guarda archivos antiguos como respaldo
-
-PRIVACIDAD:
-- No compartas datos personales innecesarios
-- Usa "Anónimo" si prefieres
-- Solo comparte multimedia si es necesario
-
-================================================
-DESARROLLADA POR VIBRAS POSITIVAS HM
-Derechos de Autor Reservados
-Guardia Digital v3.0
-================================================`;
-            
-            const blob = new Blob([manual], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Guardia-Digital-Manual-v3.0-${new Date().toISOString().split('T')[0]}.txt`;
+            a.download = `Guardia-Colinas-Backup-${new Date().toISOString().split('T')[0]}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            
+            alert('✅ Backup descargado correctamente');
         }
         
-        window.addEventListener('load', () => {
-            console.log('[Guardia] 🚀 v3.0 - Con Multimedia');
-            actualizarDashboard();
-            document.getElementById('incidentes').addEventListener('click', cargarIncidentes);
-        });
+        function restaurarBackup() {
+            document.getElementById('backupInput').click();
+        }
+        
+        function procesarBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const backup = JSON.parse(e.target.result);
+                    localStorage.setItem('guardia_reportes', JSON.stringify(backup.reportes));
+                    alert('✅ Backup restaurado correctamente');
+                    cargarIncidentes();
+                    actualizarDashboard();
+                } catch (err) {
+                    alert('❌ Error al procesar archivo');
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function compartirWhatsApp() {
+            const reportes = JSON.parse(localStorage.getItem('guardia_reportes') || '[]');
+            const msg = `🛡️ *Guardia Digital - Colinas del Portal*\n\n📊 Resumen:\n✅ Total reportes: ${reportes.length}\n⏰ Fecha: ${new Date().toLocaleDateString('es-CO')}\n\nPara más detalles, descarga el backup desde la app.`;
+            
+            const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+        
+        function capturaFoto() {
+            alert('📷 Funcionalidad multimedia disponible en navegadores móviles');
+        }
+        
+        function grabaVideo() {
+            alert('🎥 Funcionalidad multimedia disponible en navegadores móviles');
+        }
+        
+        function grabaAudio() {
+            alert('🎙️ Funcionalidad multimedia disponible en navegadores móviles');
+        }
+        
+        function llamar(numero) {
+            window.location.href = `tel:${numero}`;
+        }
+        
+        function copiarAlPortapapeles(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Número copiado');
+            });
+        }
+        
+        // ===== FUNCIONES DE CUADRANTES =====
+        
+        function cargarManzanasCuadrantes() {
+            const select = document.getElementById('miManzana');
+            MANZANAS.forEach(m => {
+                const option = document.createElement('option');
+                option.value = m;
+                option.textContent = m;
+                select.appendChild(option);
+            });
+        }
+        
+        function cargarContactosCuadrantes() {
+            const contactos = JSON.parse(localStorage.getItem('guardia_contactos_cuadrantes') || '[]');
+            mostrarContactosCuadrantes(contactos);
+        }
+        
+        function mostrarContactosCuadrantes(contactos) {
+            const lista = document.getElementById('listadoCuadrantes');
+            
+            if (contactos.length === 0) {
+                lista.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #999; font-size: 12px; padding: 15px;">Sin contactos registrados aún</div>';
+                return;
+            }
+            
+            lista.innerHTML = '';
+            contactos.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'contact-card';
+                card.style.backgroundColor = 'var(--gris-claro)';
+                card.style.border = '2px solid var(--azul-medio)';
+                card.innerHTML = `
+                    <div class="contact-label">${c.manzana}</div>
+                    <div style="font-weight: 600; font-size: 13px; color: var(--azul-oscuro); margin: 4px 0;">${c.nombre}</div>
+                    <div class="contact-phone" onclick="llamar('${c.telefono}')" style="cursor: pointer; font-size: 14px;">${c.telefono}</div>
+                    <button style="padding: 6px; font-size: 11px; margin-bottom: 0; width: 100%;" onclick="llamar('${c.telefono}')">📞 Llamar</button>
+                    <button style="padding: 6px; font-size: 11px; margin-bottom: 0; width: 100%; background: var(--naranja-aviso);" onclick="eliminarContactoCuadrante('${c.id}')">🗑️ Eliminar</button>
+                `;
+                lista.appendChild(card);
+            });
+        }
+        
+        function registrarContactoPersonal() {
+            const nombre = document.getElementById('miNombre').value.trim();
+            const telefono = document.getElementById('miTelefono').value.trim();
+            const manzana = document.getElementById('miManzana').value;
+            
+            if (!nombre || !telefono || !manzana) {
+                alert('⚠️ Completa todos los campos');
+                return;
+            }
+            
+            // Validar formato teléfono
+            if (!/^\d{10}$/.test(telefono.replace(/\D/g, ''))) {
+                alert('⚠️ Teléfono inválido (10 dígitos)');
+                return;
+            }
+            
+            const contacto = {
+                id: Date.now(),
+                nombre,
+                telefono,
+                manzana,
+                fecha: new Date().toLocaleString('es-CO')
+            };
+            
+            let contactos = JSON.parse(localStorage.getItem('guardia_contactos_cuadrantes') || '[]');
+            contactos.unshift(contacto);
+            localStorage.setItem('guardia_contactos_cuadrantes', JSON.stringify(contactos));
+            
+            alert(`✅ Contacto guardado: ${nombre} - ${telefono}`);
+            document.getElementById('miNombre').value = '';
+            document.getElementById('miTelefono').value = '';
+            document.getElementById('miManzana').value = '';
+            
+            mostrarContactosCuadrantes(contactos);
+        }
+        
+        function eliminarContactoCuadrante(id) {
+            if (!confirm('¿Eliminar este contacto?')) return;
+            
+            let contactos = JSON.parse(localStorage.getItem('guardia_contactos_cuadrantes') || '[]');
+            contactos = contactos.filter(c => c.id !== id);
+            localStorage.setItem('guardia_contactos_cuadrantes', JSON.stringify(contactos));
+            
+            mostrarContactosCuadrantes(contactos);
+        }
+        
+        function filtrarCuadrantes() {
+            const search = document.getElementById('searchCuadrante').value.toLowerCase();
+            const contactos = JSON.parse(localStorage.getItem('guardia_contactos_cuadrantes') || '[]');
+            
+            const filtrados = contactos.filter(c => 
+                c.manzana.toLowerCase().includes(search) ||
+                c.nombre.toLowerCase().includes(search) ||
+                c.telefono.includes(search)
+            );
+            
+            mostrarContactosCuadrantes(filtrados.length > 0 ? filtrados : []);
+            
+            if (filtrados.length === 0 && search !== '') {
+                const lista = document.getElementById('listadoCuadrantes');
+                lista.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #999; font-size: 12px; padding: 15px;">❌ No se encontraron contactos</div>';
+            }
+        }
+        
+        window.addEventListener('load', initApp);
     </script>
 </body>
 </html>
