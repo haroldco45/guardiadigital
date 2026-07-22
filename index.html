@@ -6,24 +6,33 @@
     <meta name="description" content="Guardia Digital Colinas del Portal - Seguridad comunitaria con Sirena GSM">
     <meta name="theme-color" content="#1e3a5f">
     
-    <!-- Open Graph -->
+    <!-- Open Graph - Para compartir en redes/WhatsApp -->
     <meta property="og:title" content="🛡️ Guardia Digital - Colinas del Portal">
-    <meta property="og:description" content="Sistema de seguridad comunitaria con sirena y reportes multimedia">
-    <meta property="og:image" content="https://raw.githubusercontent.com/haroldco45/guardiadigital/main/og-image.svg">
+    <meta property="og:description" content="Sistema de seguridad comunitaria integrado: reportes, sirena GSM y red de contactos">
+    <meta property="og:image" content="https://guardiasdigitalcolinas.netlify.app/og-image.svg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="https://guardiadigitalcolina.netlify.app/">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:url" content="https://guardiasdigitalcolinas.netlify.app/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="🛡️ Guardia Digital - Colinas del Portal">
-    <meta name="twitter:description" content="Seguridad comunitaria con sirena y multimedia">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/haroldco45/guardiadigital/main/og-image.svg">
+    <meta name="twitter:description" content="Reporta incidentes, activa sirena, conecta con vecinos">
+    <meta name="twitter:image" content="https://guardiasdigitalcolinas.netlify.app/og-image.svg">
+    <meta name="twitter:site" content="@VibrasPHP">
     
-    <!-- PWA -->
-    <link rel="manifest" href="data:application/json,{\"name\":\"Guardia Digital Colinas\",\"short_name\":\"Guardia Colinas\",\"start_url\":\"/\",\"display\":\"standalone\"}">
+    <!-- WhatsApp Preview -->
+    <meta property="og:site_name" content="Guardia Digital">
+    
+    <!-- PWA - Progressive Web App -->
+    <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Guardia Digital">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%231e3a5f' width='180' height='180'/><text x='90' y='100' font-size='80' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>🛡️</text></svg>">
     
     <title>🛡️ Guardia Digital - Colinas del Portal</title>
     
@@ -923,6 +932,15 @@
                 const lista = document.getElementById('listadoCuadrantes');
                 lista.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: #999; font-size: 12px; padding: 15px;">❌ No se encontraron contactos</div>';
             }
+        }
+        
+        // Service Worker para funcionamiento offline
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                console.log('[SW] Registrado correctamente');
+            }).catch(err => {
+                console.log('[SW] Error:', err);
+            });
         }
         
         window.addEventListener('load', initApp);
