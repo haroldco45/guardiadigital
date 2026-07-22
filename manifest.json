@@ -1,0 +1,103 @@
+{
+  "name": "Guardia Digital - Colinas del Portal",
+  "short_name": "Guardia Digital",
+  "description": "Sistema de seguridad comunitaria: reportes, sirena GSM y red de contactos",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1e3a5f",
+  "background_color": "#ffffff",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%231e3a5f' width='192' height='192' rx='40'/><text x='96' y='120' font-size='110' fill='white' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold'>🛡️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%231e3a5f' width='192' height='192' rx='40'/><text x='96' y='120' font-size='110' fill='white' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold'>🛡️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%231e3a5f' width='512' height='512' rx='80'/><text x='256' y='320' font-size='280' fill='white' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold'>🛡️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%231e3a5f' width='512' height='512' rx='80'/><text x='256' y='320' font-size='280' fill='white' text-anchor='middle' font-family='Arial, sans-serif' font-weight='bold'>🛡️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23667eea' width='540' height='720'/><text x='270' y='360' font-size='80' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>🛡️ Guardia Digital</text></svg>",
+      "sizes": "540x720",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Reportar Incidente",
+      "short_name": "Reportar",
+      "description": "Reporta un nuevo incidente de seguridad",
+      "url": "/?tab=reportar",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23f39c12' width='192' height='192' rx='40'/><text x='96' y='120' font-size='110' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>📸</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Activar Sirena",
+      "short_name": "Sirena",
+      "description": "Ver información de la sirena comunitaria",
+      "url": "/?tab=sirena",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23e74c3c' width='192' height='192' rx='40'/><text x='96' y='120' font-size='110' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>🚨</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Cuadrantes",
+      "short_name": "Contactos",
+      "description": "Red de contactos por cuadrante",
+      "url": "/?tab=cuadrantes",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232d5a8c' width='192' height='192' rx='40'/><text x='96' y='120' font-size='110' fill='white' text-anchor='middle' font-family='Arial' font-weight='bold'>👥</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "media",
+          "accept": ["image/*", "video/*", "audio/*"]
+        }
+      ]
+    }
+  },
+  "prefer_related_applications": false
+}
