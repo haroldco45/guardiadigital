@@ -394,6 +394,7 @@
             <button class="tab-btn" onclick="switchTab('cuadrantes')">📍 Cuadrantes</button>
             <button class="tab-btn" onclick="switchTab('contactos')">☎️ Contactos</button>
             <button class="tab-btn" onclick="switchTab('backup')">💾 Backup</button>
+            <button class="tab-btn" onclick="switchTab('ayuda')">📖 Ayuda</button>
         </div>
         
         <div class="content">
@@ -629,6 +630,163 @@
                 <button onclick="compartirWhatsApp()">💬 Compartir por WhatsApp</button>
                 
                 <input type="file" id="backupInput" class="file-input" accept=".json" onchange="procesarBackup(event)">
+            </div>
+            
+            <!-- AYUDA / MANUAL DEL USUARIO -->
+            <div id="ayuda" class="tab-content">
+                <h2 style="color: var(--azul-oscuro); margin-bottom: 12px; font-size: 16px;">📖 Manual del Usuario</h2>
+                
+                <div style="font-size: 13px; line-height: 1.6; color: #333;">
+                    
+                    <!-- INICIO -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; font-size: 14px;">📊 Inicio (Dashboard)</div>
+                        <div>Visualiza un resumen de todos los reportes registrados en el barrio. Aquí puedes ver:</div>
+                        <ul style="margin-top: 6px; margin-left: 16px;">
+                            <li>Total de reportes registrados</li>
+                            <li>Últimos incidentes reportados</li>
+                            <li>Contador de cada tipo de incidente</li>
+                            <li>Fecha y hora actualizados</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- SIRENA GSM -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--rojo-sirena); margin-bottom: 6px; font-size: 14px;">🚨 Sirena GSM</div>
+                        <div>Acceso directo a la sirena de emergencia del barrio. Úsalo para:</div>
+                        <ul style="margin-top: 6px; margin-left: 16px;">
+                            <li><strong>Llamar</strong> - Comunícate directamente con quien administra la sirena</li>
+                            <li><strong>Copiar teléfono</strong> - Copia el número para guardar o compartir</li>
+                        </ul>
+                        <div style="margin-top: 8px; padding: 6px; background: #fff3cd; border-left: 4px solid var(--amarillo-warning); font-size: 12px;">
+                            <strong>⚠️ Úsalo solo en emergencias reales</strong> - No para bromas o pruebas
+                        </div>
+                    </div>
+                    
+                    <!-- REPORTAR INCIDENTE -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; font-size: 14px;">📸 Reportar Incidente</div>
+                        <div>Crea un nuevo reporte de incidente. Sigue estos pasos:</div>
+                        <ol style="margin-top: 6px; margin-left: 16px;">
+                            <li><strong>Selecciona manzana</strong> - Elige dónde ocurrió el incidente</li>
+                            <li><strong>Tipo de incidente</strong> - Clasifica: Asalto, Hurto, Pelea, Droga, Otro</li>
+                            <li><strong>Descripción</strong> - Cuéntanos qué pasó (máximo 200 caracteres)</li>
+                            <li><strong>Nombre (opcional)</strong> - Tu nombre o déjalo anónimo</li>
+                            <li><strong>Teléfono (opcional)</strong> - Para que otros vecinos puedan contactarte</li>
+                            <li><strong>Multimedia</strong> - Adjunta foto, video o audio si tienes (en móvil)</li>
+                            <li><strong>Enviar Reporte</strong> - Haz clic para registrar</li>
+                        </ol>
+                        <div style="margin-top: 8px; padding: 6px; background: #d4edda; border-left: 4px solid var(--verde-seguro); font-size: 12px;">
+                            <strong>✅ Tip:</strong> Sé específico con detalles: hora, descripción de personas, vehículos, etc.
+                        </div>
+                    </div>
+                    
+                    <!-- HISTÓRICO -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; font-size: 14px;">📋 Histórico</div>
+                        <div>Consulta todos los reportes registrados en Colinas del Portal. Aquí puedes:</div>
+                        <ul style="margin-top: 6px; margin-left: 16px;">
+                            <li>Ver detalles de cada incidente (manzana, tipo, descripción)</li>
+                            <li>Identificar zonas con más problemas</li>
+                            <li>Saber quién reportó (si no fue anónimo)</li>
+                            <li>Revisar la fecha y hora exacta de cada reporte</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- CUADRANTES -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; font-size: 14px;">📍 Cuadrantes</div>
+                        <div>Red de contactos de vecinos por manzana para coordinar seguridad.</div>
+                        <div style="margin-top: 6px;"><strong>Registrar tu contacto:</strong></div>
+                        <ol style="margin-top: 4px; margin-left: 16px;">
+                            <li>Ingresa tu nombre completo</li>
+                            <li>Registra tu número telefónico (10 dígitos)</li>
+                            <li>Selecciona tu manzana</li>
+                            <li>Haz clic en "Guardar contacto"</li>
+                        </ol>
+                        <div style="margin-top: 6px;"><strong>Ver contactos:</strong></div>
+                        <ul style="margin-top: 4px; margin-left: 16px;">
+                            <li>Busca por manzana, nombre o teléfono</li>
+                            <li>Llama directamente desde la app</li>
+                            <li>Elimina contactos si lo deseas</li>
+                        </ul>
+                        <div style="margin-top: 8px; padding: 6px; background: #d4edda; border-left: 4px solid var(--verde-seguro); font-size: 12px;">
+                            <strong>✅ Tip:</strong> Usa esto para crear grupos de WhatsApp por manzana y coordinar vigilancia
+                        </div>
+                    </div>
+                    
+                    <!-- CONTACTOS DE EMERGENCIA -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--rojo-alerta); margin-bottom: 6px; font-size: 14px;">☎️ Contactos de Emergencia</div>
+                        <div>Números importantes de Caucasia siempre a la mano:</div>
+                        <ul style="margin-top: 6px; margin-left: 16px;">
+                            <li><strong>🚨 Sirena GSM</strong> - Alarma comunitaria</li>
+                            <li><strong>🚔 Policía Local</strong> - Denuncias y asistencia</li>
+                            <li><strong>🏥 Ambulancia</strong> - Emergencias médicas</li>
+                            <li><strong>👥 JAC Colinas</strong> - Junta de Acción Comunal</li>
+                        </ul>
+                        <div style="margin-top: 8px; padding: 6px; background: #fff3cd; border-left: 4px solid var(--amarillo-warning); font-size: 12px;">
+                            <strong>⚠️ En caso de emergencia:</strong> Llama al número correspondiente Y reporta en Guardia Digital
+                        </div>
+                    </div>
+                    
+                    <!-- BACKUP -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: var(--gris-claro); border-radius: 6px;">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 6px; font-size: 14px;">💾 Backup y Sincronización</div>
+                        <div>Respalda y comparte los datos de seguridad del barrio:</div>
+                        <ul style="margin-top: 6px; margin-left: 16px;">
+                            <li><strong>Descargar Backup</strong> - Descarga todos los reportes en formato JSON</li>
+                            <li><strong>Restaurar Backup</strong> - Carga un backup previamente guardado</li>
+                            <li><strong>Compartir por WhatsApp</strong> - Envía un resumen a tu grupo</li>
+                        </ul>
+                        <div style="margin-top: 8px; padding: 6px; background: #d4edda; border-left: 4px solid var(--verde-seguro); font-size: 12px;">
+                            <strong>✅ Recomendación:</strong> El coordinador central descarga backups semanales y los comparte con todos
+                        </div>
+                    </div>
+                    
+                    <!-- PREGUNTAS FRECUENTES -->
+                    <div style="margin-bottom: 16px; padding: 10px; background: #e7f3ff; border-radius: 6px; border-left: 4px solid var(--azul-medio);">
+                        <div style="font-weight: 700; color: var(--azul-oscuro); margin-bottom: 10px; font-size: 14px;">❓ Preguntas Frecuentes</div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 4px;">¿Mis datos son privados?</div>
+                            <div style="font-size: 12px;">Sí. Guardia Digital almacena tus reportes localmente en tu teléfono. Los contactos personales no se comparten a menos que tú lo hagas.</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 4px;">¿Puedo reportar anónimamente?</div>
+                            <div style="font-size: 12px;">Sí. El nombre y teléfono son opcionales. Deja los campos vacíos para reportar como "Anónimo".</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 4px;">¿Funciona sin internet?</div>
+                            <div style="font-size: 12px;">Sí. Una vez cargada, Guardia Digital funciona completamente offline. Se sincroniza cuando hay conexión.</div>
+                        </div>
+                        
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 4px;">¿Cómo agrego a mis contactos del barrio?</div>
+                            <div style="font-size: 12px;">Ve a la pestaña "Cuadrantes", ingresa tu nombre y teléfono, selecciona tu manzana y guarda. Otros verán tu contacto en sus listas.</div>
+                        </div>
+                        
+                        <div>
+                            <div style="font-weight: 600; color: var(--azul-oscuro); margin-bottom: 4px;">¿Qué hago si hay un error?</div>
+                            <div style="font-size: 12px;">Puedes restaurar un backup anterior en la pestaña "Backup" para recuperar todos tus datos.</div>
+                        </div>
+                    </div>
+                    
+                    <!-- CONSEJOS DE SEGURIDAD -->
+                    <div style="padding: 10px; background: #fff3cd; border-radius: 6px; border-left: 4px solid var(--amarillo-warning);">
+                        <div style="font-weight: 700; color: #a0681e; margin-bottom: 8px; font-size: 14px;">🛡️ Consejos de Seguridad</div>
+                        <ul style="margin-left: 16px; font-size: 12px;">
+                            <li>Reporta incidentes <strong>lo antes posible</strong> para alertar a otros vecinos</li>
+                            <li>Comparte información relevante: <strong>hora, lugar, descripción de personas/vehículos</strong></li>
+                            <li>No salgas solo cuando hay alertas de seguridad en tu zona</li>
+                            <li>Crea grupos de WhatsApp con tus cuadrantes para coordinación rápida</li>
+                            <li>Mantén una copia de backup de los reportes en tu nube (Google Drive, OneDrive, etc.)</li>
+                            <li>En caso de emergencia <strong>siempre llama a la policía</strong>, no solo reportes en la app</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         
