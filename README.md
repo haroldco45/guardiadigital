@@ -1,200 +1,365 @@
-# 🛡️ Guardia Digital v3.0 - CON MULTIMEDIA
+# 🛡️ Guardia Digital v4.0 - Colinas del Portal
 
-## ✨ NUEVAS CARACTERÍSTICAS
-
-### 📸 MULTIMEDIA COMPLETA:
-✅ **Fotos** - Captura desde cámara del teléfono/PC
-✅ **Videos** - Graba video con audio
-✅ **Audio** - Graba solo sonido (para denuncias anónimas)
-✅ **Archivos** - Sube fotos/videos/audios desde galería
-
-### 💾 ALMACENAMIENTO:
-✅ La multimedia se guarda **con cada reporte**
-✅ Se incluye en el **backup JSON**
-✅ Se descarga **en formato Base64** (comprimido)
-✅ Se restaura automáticamente
-
-### 📊 DASHBOARD:
-✅ Contador de reportes **con multimedia**
-✅ Vista previa en histórico
+**Sistema de Seguridad Comunitaria con Integración de Sirena GSM**
 
 ---
 
-## 🚀 CÓMO USAR MULTIMEDIA
+## 📋 Descripción
 
-### **📷 CAPTURAR FOTO:**
-1. Click en tab **"📸 Reportar"**
-2. Completa tipo, descripción y ubicación
-3. Click en **"📷 Foto"**
-4. Se abre cámara en tiempo real
-5. Click **"📸 Capturar"** para tomar foto
-6. Se muestra preview de la foto
-7. Llena el resto del formulario
-8. Click **"📤 Enviar Reporte"**
+Guardia Digital es una aplicación web de seguridad comunitaria diseñada específicamente para **Colinas del Portal** (Caucasia, Antioquia). Integra reportes multimedia con un sistema de alarma comunitaria GSM, creando un ecosistema completo de protección vecinal.
 
-### **🎥 GRABAR VIDEO:**
-1. Click en **"🎥 Video"**
-2. Se abre cámara
-3. Aparece botón **"⏹️ Detener Video"**
-4. Graba mientras desees
-5. Click **"⏹️ Detener"** cuando termines
-6. Se procesa y muestra preview
-7. Envía el reporte
-
-### **🎙️ GRABAR AUDIO:**
-1. Click en **"🎙️ Audio"**
-2. Se abre micrófono
-3. El botón se vuelve **rojo parpadeante** (grabando)
-4. Habla lo que necesites
-5. Click **"⏹️ Detener Audio"**
-6. Se muestra reproductor de audio
-7. Envía el reporte
-
-### **📁 SUBIR ARCHIVO:**
-1. Click en **"📁 Archivo"**
-2. Selecciona foto/video/audio de tu galería
-3. Se carga y muestra preview
-4. Envía el reporte
+**Características principales:**
+- ✅ Reportes de incidentes con multimedia (fotos, videos, audio)
+- ✅ Integración con Sirena Comunitaria GSM (200 usuarios, 5 admin)
+- ✅ Mapa de 30 manzanas del barrio
+- ✅ Contactos de emergencia locales
+- ✅ Sincronización vía WhatsApp
+- ✅ Almacenamiento local (sin servidor)
+- ✅ PWA (funciona offline)
 
 ---
 
-## 📊 CARACTERÍSTICAS TÉCNICAS
+## 🚀 Mejoras v4.0 vs v3.0
 
-### Formatos soportados:
-**Fotos**: JPEG, PNG, GIF, WebP
-**Videos**: MP4, WebM (con audio)
-**Audio**: MP3, WAV, M4A
-
-### Tamaño máximo:
-~5 MB por archivo (comprimido en Base64)
-
-### Almacenamiento:
-localStorage del navegador (máximo ~10 MB total)
-
-### Compresión:
-Las fotos se comprimen a JPEG 80% automáticamente
+| Aspecto | v3.0 | v4.0 |
+|--------|------|------|
+| **Identidad** | Genérica | Colinas del Portal |
+| **Sirena** | ❌ No | ✅ Integrada GSM |
+| **Manzanas** | ❌ No | ✅ 30 manzanas |
+| **Contactos** | ❌ No | ✅ Emergencia local |
+| **Admin Panel** | ❌ No | ✅ Historial sirena |
+| **Stats** | Básicos | Mejorados |
+| **Header** | Genérico | Barrio específico |
 
 ---
 
-## 💾 BACKUP CON MULTIMEDIA
+## 📱 Pestañas Principales
 
-### ¿Qué se guarda?
-✅ Todos los datos del reporte
-✅ **Toda la multimedia en Base64** (integrada en JSON)
-✅ Fechas, horas, ubicaciones
+### 1. 📊 Inicio (Dashboard)
+- Estado general del barrio
+- Estadísticas: total reportes, sirenas activadas hoy
+- Últimas alertas en tiempo real
+- Últimos 3 reportes
 
-### Tamaño del backup:
-- Sin multimedia: ~1-5 KB
-- Con multimedia: 100 KB - 5 MB (según cantidad)
+### 2. 🚨 Sirena Comunitaria
+- Información de activación (cómo llamar)
+- Número principal de sirena GSM
+- Contactos de los 5 administradores
+- Especificaciones técnicas (200 usuarios)
+- **Historial de activaciones del día**
 
-### Cómo descargar:
-1. Tab **"💾 Backup"**
-2. Click **"📥 Descargar Backup"**
-3. Se descarga: `guardia-backup-2026-07-20.json`
-4. Guarda en PC
+### 3. 📸 Reportar
+- Selector de tipo de incidente (7 categorías)
+- Selección de manzana (1-30)
+- Descripción detallada
+- Datos opcionales (nombre, teléfono)
+- Captura multimedia (foto, video, audio)
+- Envío instantáneo
 
-### Cómo restaurar:
-1. Tab **"💾 Backup"**
-2. Click **"📤 Restaurar Backup"**
-3. Selecciona archivo `.json`
-4. Se restauran **todos los reportes + multimedia**
+### 4. 📋 Histórico
+- Listado completo de reportes
+- Ordenado por fecha (más reciente primero)
+- Búsqueda por manzana
+- Detalles de cada incidente
 
-### Compartir:
-La multimedia se incluye automáticamente en el backup.
-Cuando compartes el archivo, el otro usuario puede ver:
-- Todas las fotos
-- Todos los videos
-- Todos los audios
+### 5. ☎️ Contactos
+- Sirena GSM
+- Policía local
+- Ambulancia/Cruz Roja
+- JAC Colinas del Portal
+- Datos del barrio
 
----
-
-## ⚙️ DIFERENCIAS v2.1 → v3.0
-
-| Feature | v2.1 | v3.0 |
-|---------|------|------|
-| **Fotos** | ❌ | ✅ |
-| **Videos** | ❌ | ✅ |
-| **Audio** | ❌ | ✅ |
-| **Cámara en vivo** | ❌ | ✅ |
-| **Preview multimedia** | ❌ | ✅ |
-| **Media en backup** | ❌ | ✅ |
-| **Contador con media** | ❌ | ✅ |
+### 6. 💾 Backup
+- Descargar backup en JSON
+- Restaurar desde archivo
+- Compartir por WhatsApp
+- Sincronización comunitaria
 
 ---
 
-## 🔒 PRIVACIDAD
+## 🛠️ Instalación
 
-✅ Multimedia se guarda **solo en tu navegador**
-✅ NO se envía a servidores
-✅ Control total: tú decides qué compartir
-✅ Si limpias caché, necesitas tener backup
+### Opción 1: Netlify Deploy (Recomendado)
 
----
+1. Clona o descarga este repositorio
+2. Sube a Netlify:
+   ```
+   Conecta GitHub → Netlify
+   Deploy directo
+   ```
+3. URL resultante: `https://guardiadigitalcolina.netlify.app`
 
-## 🆘 TROUBLESHOOTING
+### Opción 2: GitHub Pages
 
-### "La cámara no funciona"
-- Verifica permisos del navegador
-- Debe permitir acceso a cámara/micrófono
-- Algunos navegadores antiguos no lo soportan
+1. Fork del repositorio
+2. Renombra a: `guardiadigitalcolina`
+3. GitHub Pages automáticamente activa
+4. URL: `https://[tu-usuario].github.io/guardiadigitalcolina/`
 
-### "El video es muy grande"
-- Los videos se guardan en alta calidad
-- Para compartir, los puedes comprimir externamente
+### Opción 3: Servidor Local
 
-### "No puedo restaurar multimedia"
-- Verifica que el archivo JSON sea válido
-- La multimedia debe estar en Base64
-
----
-
-## 📱 COMPATIBILIDAD
-
-**Funciona en:**
-✅ Chrome/Edge (desktop + móvil)
-✅ Firefox (desktop + móvil)
-✅ Safari (iPhone - limitado)
-✅ Navegadores Android modernos
-
-**Limitaciones:**
-⚠️ Safari: a veces pide permisos especiales
-⚠️ Navegadores muy antiguos: no soportan
+```bash
+# Abre directamente en navegador
+open index.html
+```
 
 ---
 
-## 💡 CASOS DE USO
+## 💾 Almacenamiento de Datos
 
-### 1. **Reportar robo con evidencia:**
-- Toma foto del vehículo
-- Graba video del lugar
-- Adjunta ambos al reporte
+Todos los datos se guardan **localmente en el navegador** usando `localStorage`:
 
-### 2. **Denunciar sospechoso:**
-- Graba audio describiendo persona
-- Toma foto del lugar
-- Video de la ronda
+```javascript
+guardia_reportes = [
+  {
+    id: timestamp,
+    tipo: "robo_vehiculo",
+    manzana: "Manzana 5",
+    descripcion: "...",
+    nombre: "...",
+    telefono: "...",
+    fecha: "2026-07-22 14:30",
+    timestamp: 1721673000000
+  }
+]
+```
 
-### 3. **Accidente:**
-- Video de daños
-- Fotos de placa
-- Audio de testigos
-
-### 4. **Compartir barrio completo:**
-- Descarga backup con todas las multimedia
-- Comparte archivo por WhatsApp
-- Otros usuarios ven fotos/videos/audios
-
----
-
-## 🚀 DEPLOYMENT
-
-1. **Descarga:** `guardia-digital-v3.0.html` ⬆️
-2. **GitHub:** Reemplaza `index.html`
-3. **Commit:** "feat: multimedia completa - v3.0"
-4. **Espera:** 2-3 minutos
+**NO requiere servidor, base de datos ni API.**
 
 ---
 
-**Version**: 3.0
-**Fecha**: 20/07/2026
-**Status**: Production Ready ✅
+## 📞 Contactos Configurados
+
+### Sirena GSM
+- **Número**: 311 770 0431
+- **Capacidad**: 200 usuarios
+- **Admin**: 5 máximo
+- **Activación**: Solo llamada (rechaza números no autorizados)
+
+### Emergencias Locales
+- **Policía**: 311 389 6080
+- **Ambulancia**: 311 770 0431
+- **JAC Colinas**: 311 770 0431
+
+**⚠️ Todos estos números deben actualizarse con datos reales del barrio.**
+
+---
+
+## 📊 Categorías de Incidentes
+
+1. 🚗 Robo de Vehículo
+2. 🏠 Robo a Residencia
+3. 👤 Sospechoso Rondando
+4. ⚠️ Asalto/Violencia
+5. 🚑 Accidente
+6. 💊 Actividad Sospechosa
+7. ❓ Otro
+
+---
+
+## 🚨 Sirena GSM - Especificaciones
+
+### Equipo
+- **Modelo**: Alarma Comunitaria GSM + Sirena 110V
+- **Precio**: $700.000 COP
+- **Instalación**: Incluida
+- **Mantenimiento**: ~$100k/año
+
+### Características
+✅ Solo responde a números programados
+✅ 200 usuarios máximo
+✅ Sirena se apaga automáticamente
+✅ SMS a admin indicando quién activó
+✅ Conexión fácil (solo energía + sirena)
+✅ Programación por SMS
+
+### Integración Guardia Digital
+1. Usuario ve "Sirena" en la app
+2. Llama al número programado
+3. Sirena se activa
+4. App registra en historial
+5. Admin recibe SMS
+6. Vecinos ven alerta en app
+
+---
+
+## 🔐 Privacidad y Seguridad
+
+**✅ Protección Garantizada:**
+- Datos 100% privados en navegador (localStorage)
+- NO se envían a servidores externos
+- NO requiere login
+- TÚ tienes control total
+- Puedes eliminar datos cuando quieras
+
+**⚠️ Importante:**
+Si limpias el caché del navegador, se pierden los datos.
+Por eso **descarga backup regularmente** y comparte en grupo WhatsApp.
+
+---
+
+## 📱 PWA - Instalación en Teléfono
+
+### Android
+1. Abre en Chrome
+2. Menú → Instalar app
+3. Se añade a pantalla de inicio
+
+### iPhone
+1. Abre en Safari
+2. Compartir → Añadir a pantalla de inicio
+3. Se comporta como app nativa
+
+---
+
+## 💡 Casos de Uso
+
+### Reportar Robo de Vehículo
+```
+Tipo: Robo de Vehículo
+Manzana: Manzana 12
+Descripción: "Vehículo gris robado de mi casa esta mañana"
+Foto: Placa del vehículo
+Video: Entrada de la casa
+Audio: Descripción de lo que pasó
+```
+
+### Alertar Sospechoso
+```
+Tipo: Sospechoso Rondando
+Manzana: Manzana 5
+Descripción: "Personas rondando las casas"
+Video: Grabación de las personas
+Audio: Descripción de características
+```
+
+### Coordinación en Accidente
+```
+Tipo: Accidente
+Manzana: Manzana 8
+Descripción: "Accidente en la esquina de la tienda"
+Foto: Lugar del accidente
+Teléfono: Para seguimiento
+```
+
+---
+
+## 🎯 Flujo de Uso Comunitario
+
+### Día 1
+1. **Coordinador elige PC central**
+2. **Distribuye link de app** a vecinos
+3. **Todos descargan** Guardia Digital
+
+### Día 2-30
+1. **Vecinos reportan** incidentes
+2. **Coordinador monitorea** dashboard
+3. **Descarga backup** cada 2-3 días
+4. **Comparte en WhatsApp** del barrio
+
+### Mensualmente
+1. **Revisar estadísticas**
+2. **Ajustar categorías** si es necesario
+3. **Actualizar contactos** de emergencia
+4. **Hacer backup** de archivos antiguos
+
+---
+
+## 🔧 Personalización
+
+### Cambiar Números de Sirena
+Abre `index.html` y edita:
+```javascript
+// Línea ~350
+<div class="contact-phone" onclick="llamar('NUEVO_NUMERO')">XXX XXX XXXX</div>
+```
+
+### Cambiar Nombre del Barrio
+```javascript
+// Línea ~20 aprox
+Guardia Digital - [NUEVO BARRIO]
+```
+
+### Agregar Manzanas
+```javascript
+// Línea ~95
+const MANZANAS = Array.from({length: 30}, ...)
+// Cambiar 30 al número real de manzanas
+```
+
+### Cambiar Categorías
+Edita el `<select id="tipoIncidente">` en la pestaña Reportar
+
+---
+
+## 📊 Estadísticas Barrio Colinas del Portal
+
+- **Manzanas**: 30
+- **Población estimada**: 400-500 familias
+- **Cuota comunitaria propuesta**: $33-50k/mes
+- **Usuarios de sirena**: Hasta 200
+- **Administradores**: 5 máximo
+
+---
+
+## 🤝 Integración con JAC
+
+1. **Coordinador JAC** usa PC central
+2. **Recibe reportes** en la app
+3. **Comparte** con grupo WhatsApp
+4. **Coordina respuesta** con policía/sirena
+5. **Mantiene histórico** de eventos
+
+---
+
+## ⚡ Rendimiento
+
+- **Tamaño**: 50KB (HTML + CSS + JS)
+- **Carga**: < 2 segundos
+- **Offline**: ✅ Funciona sin internet
+- **Almacenamiento**: Hasta ~10MB por navegador
+- **Compatibilidad**: Chrome, Firefox, Safari, Edge
+
+---
+
+## 📞 Soporte
+
+**Desarrollada por:** Vibras Positivas HM
+**Contacto**: harold@vibraspositivas.co
+**Versión**: 4.0
+**Última actualización**: Julio 2026
+
+---
+
+## 📝 Cambios Log
+
+### v4.0 (Julio 2026)
+- ✅ Integración Sirena GSM
+- ✅ Identidad Colinas del Portal
+- ✅ 30 manzanas incluidas
+- ✅ Contactos de emergencia locales
+- ✅ Historial de activaciones de sirena
+- ✅ Panel de stats mejorado
+- ✅ UI optimizada para móvil
+
+### v3.0 (Anterior)
+- Reportes con multimedia
+- Backup/restore
+- WhatsApp sharing
+- Dashboard básico
+
+---
+
+## 🎓 Manual Rápido
+
+1. **Reportar**: Click "📸 Reportar" → Completa formulario → Enviar
+2. **Ver reportes**: Click "📋 Histórico"
+3. **Activar sirena**: Click "🚨 Sirena" → Llama al número
+4. **Backup**: Click "💾 Backup" → Descarga → Comparte en WhatsApp
+5. **Restaurar**: Otro usuario recibe backup → Click "📤 Restaurar"
+
+---
+
+**🛡️ Guardia Digital v4.0 - Seguridad Comunitaria para Colinas del Portal**
+
+*Desarrollada por Vibras Positivas HM — Derechos de Autor Reservados*
